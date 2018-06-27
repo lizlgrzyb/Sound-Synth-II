@@ -1,0 +1,33 @@
+#N canvas 241 312 761 439 10;
+#X obj 91 307 output~;
+#X msg 91 39 open ../../audio/voice.wav \, start;
+#X obj 91 90 readsf~;
+#X msg 101 59 stop;
+#X obj 91 191 +~;
+#X obj 131 262 delwrite~ \$0-delay 1000;
+#X obj 141 142 delread~ \$0-delay 100;
+#X floatatom 141 115 5 0 1000 1 ms - -, f 5;
+#X obj 141 163 *~;
+#X floatatom 187 169 5 0 100 1 feedback-% - -, f 5;
+#X obj 187 189 / 100;
+#X obj 187 210 clip 0 0.999;
+#X text 338 113 The echo delay requires a delay buffer \, provided
+by [delwrite~]. A corresponding [delread~] object reads out of the
+same buffer \, and you can control the delay time via an inlet. The
+delayed signal is added back to the live input \, but at a gain less
+than one so that the system doesn't explode with signal. That's why
+we're using [clip] to limit the output of the number box to 0.999 at
+maximum.;
+#X connect 1 0 2 0;
+#X connect 2 0 4 0;
+#X connect 2 1 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 5 0;
+#X connect 4 0 0 0;
+#X connect 4 0 0 1;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 8 0 4 1;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 11 0 8 1;

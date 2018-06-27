@@ -1,0 +1,17 @@
+#N canvas 477 166 619 535 10;
+#X obj 267 81 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 267 102 metro 200;
+#X obj 267 123 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 268 202 osc~;
+#X obj 268 247 dac~;
+#X obj 269 147 RandRange 1000 2000;
+#X text 178 41 This guy just uses the RandRange abstraction, f 32
+;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X connect 3 0 4 0;
+#X connect 3 0 4 1;
+#X connect 5 0 3 0;

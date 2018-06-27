@@ -1,0 +1,195 @@
+#N canvas 565 85 457 517 10;
+#X declare -path ../../lib;
+#X declare -path ./lib;
+#N canvas 325 106 857 609 spectral-envelope-synth-guts 0;
+#X obj 513 474 tgl 15 0 fake-midi-kbd-active empty fake-midi-kbd 17
+7 0 10 -262144 -1 -1 0 1;
+#X obj 204 160 declare -path ../../lib;
+#X obj 433 434 output~;
+#X obj 436 363 hsl 180 15 0 250 0 0 decay-time decay-time-set decay-time
+8 8 0 10 -262144 -1 -1 17900 1;
+#X floatatom 643 363 5 0 0 1 ms - -, f 5;
+#X obj 436 343 hsl 180 15 0 500 0 0 attack-time attack-time-set attack-time
+8 8 0 10 -262144 -1 -1 8950 1;
+#X floatatom 643 343 5 0 0 1 ms - -, f 5;
+#X obj 436 383 hsl 180 15 0 100 0 0 sustain-level sustain-level-set
+sustain-level 8 8 0 10 -262144 -1 -1 3580 1;
+#X floatatom 643 383 5 0 0 1 % - -, f 5;
+#X obj 436 403 hsl 180 15 0 1000 0 0 release-time release-time-set
+release-time 8 8 0 10 -262144 -1 -1 17900 1;
+#X floatatom 643 403 5 0 0 1 ms - -, f 5;
+#X obj 204 39 loadbang;
+#X obj 596 73 r master-volume-set;
+#X obj 558 443 hradio 15 1 0 4 preset preset-set presets 0 -8 0 10
+-262144 -1 -1 3;
+#N canvas 4 23 856 299 presets 0;
+#X obj 71 56 select 0 1 2 3, f 72;
+#X msg 71 147 \; attack-time-set 5 \; decay-time-set 100 \; sustain-level-set
+20 \; release-time-set 200 \;;
+#X msg 251 147 \; attack-time-set 50 \; decay-time-set 200 \; sustain-level-set
+30 \; release-time-set 750 \;;
+#X msg 431 147 \; attack-time-set 10 \; decay-time-set 5 \; sustain-level-set
+10 \; release-time-set 50 \;;
+#X msg 611 147 \; attack-time-set 250 \; decay-time-set 750 \; sustain-level-set
+20 \; release-time-set 1000 \;;
+#X obj 71 35 r preset;
+#X connect 0 0 1 0;
+#X connect 0 1 2 0;
+#X connect 0 2 3 0;
+#X connect 0 3 4 0;
+#X connect 5 0 0 0;
+#X restore 650 53 pd presets;
+#X floatatom 643 443 5 0 0 1 vib-speed vib-speed-set vib-speed, f
+5;
+#X floatatom 643 463 5 0 0 1 vib-depth vib-depth-set vib-depth, f
+5;
+#X floatatom 643 483 5 0 0 1 portamento portamento-set portamento,
+f 5;
+#X obj 49 78 spigot;
+#N canvas 4 23 450 300 MIDI-input 0;
+#X obj 83 217 outlet;
+#X obj 263 217 outlet;
+#X obj 83 86 notein;
+#X obj 233 86 fake-midi-keyboard;
+#X obj 233 46 r fake-midi-kbd-active;
+#X connect 2 0 0 0;
+#X connect 2 1 1 0;
+#X connect 3 0 0 0;
+#X connect 3 1 1 0;
+#X connect 4 0 3 0;
+#X restore 49 26 pd MIDI-input;
+#N canvas 251 122 340 314 portamento 0;
+#X obj 92 158 line~;
+#X obj 92 229 outlet~;
+#X obj 92 47 inlet;
+#X obj 172 137 r portamento;
+#X obj 92 137 pack f f;
+#X connect 0 0 1 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 1;
+#X connect 4 0 0 0;
+#X restore 49 137 pd portamento;
+#N canvas 512 109 450 300 vibrato 0;
+#X obj 92 149 +~;
+#X obj 92 229 outlet~;
+#X obj 92 79 inlet~;
+#X obj 171 104 r vib-speed;
+#X obj 211 165 r vib-depth;
+#X obj 171 144 osc~;
+#X obj 171 165 *~;
+#X connect 0 0 1 0;
+#X connect 2 0 0 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 1;
+#X connect 5 0 6 0;
+#X connect 6 0 0 1;
+#X restore 49 171 pd vibrato;
+#N canvas 416 217 488 469 amplitude-enveloping 0;
+#X obj 252 60 inlet;
+#X obj 110 390 outlet~;
+#X obj 110 312 *~;
+#X obj 252 87 select 0;
+#X msg 210 173 0;
+#X msg 160 173 1;
+#X obj 160 282 adsr 1 5 100 20 500;
+#X obj 312 117 t b;
+#X obj 110 62 inlet~;
+#X obj 305 163 r attack-time;
+#X obj 315 183 r decay-time;
+#X obj 325 203 r sustain-level;
+#X obj 335 223 r release-time;
+#X obj 186 369 adsr 10 5 100 20 500;
+#X obj 186 390 s~ whammybar;
+#X obj 220 323 r whammybar-depth;
+#X connect 0 0 3 0;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
+#X connect 3 1 7 0;
+#X connect 4 0 6 0;
+#X connect 4 0 13 0;
+#X connect 5 0 6 0;
+#X connect 5 0 13 0;
+#X connect 6 0 2 1;
+#X connect 7 0 5 0;
+#X connect 8 0 2 0;
+#X connect 9 0 6 2;
+#X connect 9 0 13 2;
+#X connect 10 0 6 3;
+#X connect 10 0 13 3;
+#X connect 11 0 6 4;
+#X connect 11 0 13 4;
+#X connect 12 0 6 5;
+#X connect 12 0 13 5;
+#X connect 13 0 14 0;
+#X connect 15 0 13 1;
+#X restore 49 351 pd amplitude-enveloping;
+#N canvas 431 130 813 376 additive-synth 0;
+#X obj 77 288 outlet~;
+#X obj 77 26 inlet~;
+#X obj 77 238 catch~ sum-bus;
+#X obj 77 57 s~ pitch;
+#X text 148 57 << Send the current signal-rate pitch wirelessly over
+a send~/receive~ audio bus that is received in the oscillator bank
+"spectrum-partial.pd" abstraction instances.;
+#X text 191 237 << Catch all audio thrown to the wireless audio bus
+called "sum-bus";
+#X text 335 136 This [clone] creates the bank of oscillators where
+we make 30 partials in the tone. It creates 30 instances of "spectrum-partial.pd".
+Click it to see inside of the first abstraction.;
+#X obj 77 147 clone -s 1 spectrum-partial 30;
+#X connect 1 0 3 0;
+#X connect 2 0 0 0;
+#X restore 49 261 pd additive-synth;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array spectral-envelope 127 float 1;
+#A 0 8.21438 8.21438 8.57152 8.57152 8.92866 9.64294 40.3569 40.7141
+40.7141 40.7141 40.7141 39.9998 39.2855 38.2141 35.7141 32.857 26.7856
+22.1428 20 12.1429 9.64294 8.57152 7.85724 7.14296 7.14296 6.78582
+6.78582 6.78582 6.78582 7.5001 7.85724 42.4998 43.3926 43.5712 43.9283
+44.6426 45.3569 45.714 46.0712 46.4283 46.7855 18.2143 18.2143 16.0714
+14.6429 13.5715 12.5001 37.5 37.5 37.5 37.5 37.5 37.5 8.92866 9.64294
+10.0001 10.3572 12.5001 13.9286 18.5714 23.5714 29.9999 29.2856 45.357
+28.5713 27.8571 26.7856 25.7142 24.6428 22.8571 21.0714 18.9286 37.1429
+37.1429 7.14296 6.42868 6.42868 6.42868 6.42868 6.42868 6.42868 35.7143
+35.7143 35.7143 35.7143 35.7143 35.7143 8.21434 8.21434 8.21434 8.57148
+8.92862 10 10.3572 37.1429 11.4286 12.1429 12.5 13.2143 13.9286 14.2857
+27.1428 26.7856 26.4285 26.0714 25.7142 25.3571 22.5 15 14.2857 13.5715
+12.5 11.7858 11.0715 10.3572 10.0001 10.0001 8.21438 7.85724 7.5001
+7.14296 6.78571 6.78571 6.78571 6.78571 6.78571 5.35715;
+#X coords 0 50 126 0 280 140 1 0 0;
+#X restore 453 163 graph;
+#N canvas 223 90 527 251 table-setup 0;
+#X obj 42 73 loadbang;
+#X msg 42 107 \; spectral-envelope ylabel -2 12 24 36 48 \; spectral-envelope
+xlabel -2 0 12 24 36 48 60 72 84 96 108 120 \;;
+#X text 120 25 This sends a message to the spectral-envelope array
+to create labels on the X axis showing the frequency spectrum in MIDI
+units by octave \, and labels on the Y axis showing the dB scale from
+0 to 50 \;;
+#X connect 0 0 1 0;
+#X restore 626 33 pd table-setup;
+#X obj 204 180 declare -path ./lib;
+#X text 201 212 We also need abstractinos in the local "lib" directory
+for this spectral-envelope patch, f 30;
+#X floatatom 608 143 5 0 64 1 whammybar-depth whammybar-depth-set whammybar-depth
+, f 5;
+#X msg 204 60 \; preset-set 3 \; vib-speed-set 6 \; vib-depth-set 0.25
+\; portamento-set 100 \; whammybar-depth-set 25 \; master-volume-set
+90 \;;
+#X connect 3 0 4 0;
+#X connect 5 0 6 0;
+#X connect 7 0 8 0;
+#X connect 9 0 10 0;
+#X connect 11 0 29 0;
+#X connect 12 0 2 2;
+#X connect 18 0 20 0;
+#X connect 19 0 18 0;
+#X connect 19 1 18 1;
+#X connect 19 1 22 1;
+#X connect 20 0 21 0;
+#X connect 21 0 23 0;
+#X connect 22 0 2 0;
+#X connect 22 0 2 1;
+#X connect 23 0 22 0;
+#X coords 0 -1 1 1 325 420 1 420 110;
+#X restore 63 57 pd spectral-envelope-synth-guts;

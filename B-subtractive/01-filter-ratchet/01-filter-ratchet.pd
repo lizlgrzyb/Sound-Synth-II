@@ -1,0 +1,73 @@
+#N canvas 181 23 1099 703 10;
+#X declare -path ./lib;
+#X obj 604 433 hsl 128 15 1 45 0 0 decay decay-set decay -2 -8 0 12
+-262144 -1 -1 5484 1;
+#X obj 636 551 declare -path ./lib;
+#X obj 49 479 output~;
+#X obj 371 518 loadbang;
+#X obj 601 353 metro 50;
+#X obj 601 374 s env-trig;
+#X obj 601 325 loadbang;
+#X obj 604 473 hsl 128 15 10 500 1 0 filter-q filter-q-set filter-q
+-2 -8 0 12 -262144 -1 -1 6541 1;
+#X floatatom 751 473 5 0 0 1 Q filter-q -, f 5;
+#X floatatom 751 433 5 0 0 1 ms decay -, f 5;
+#X msg 371 539 \; pd dsp 1 \; decay-set 20 \; filter-q-set 75 \;;
+#X obj 232 53 fake-midi-keyboard;
+#X obj 232 33 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 232 143 poly 8 0;
+#X obj 232 164 pack f f f;
+#X obj 232 185 route 1 2 3 4 5 6 7 8;
+#X text 391 136 Now that we have a polyphonic bank of ratchet sounds
+(8 voices total) \, we don't have to worry about blocking incoming
+note commands. Overlapping notes are ok now because we have multiple
+instances of [ratchet-voice] \, which each contain multiple instances
+of [ratchet-abs] for the individual harmonics.;
+#X text 700 330 These are GLOBAL send/receive names that go to all
+8 instances of the [ratchet-voice] abstraction here., f 20;
+#X obj 232 74 + 24;
+#X obj 67 341 catch~ master-bus;
+#X obj 123 408 rev3~ 94 90 5000 50;
+#X obj 49 448 +~;
+#X obj 89 448 +~;
+#X obj 252 103 notein;
+#X obj 342 464 ratchet-voice 1;
+#X obj 412 324 ratchet-voice 8;
+#X obj 352 444 ratchet-voice 2;
+#X obj 362 424 ratchet-voice 3;
+#X obj 372 404 ratchet-voice 4;
+#X obj 382 384 ratchet-voice 5;
+#X obj 392 364 ratchet-voice 6;
+#X obj 402 344 ratchet-voice 7;
+#X text 478 543 turning on dsp \, setting decay \, and setting filter
+q, f 20;
+#X connect 3 0 10 0;
+#X connect 4 0 5 0;
+#X connect 6 0 4 0;
+#X connect 11 0 18 0;
+#X connect 11 1 13 1;
+#X connect 12 0 11 0;
+#X connect 13 0 14 0;
+#X connect 13 1 14 1;
+#X connect 13 2 14 2;
+#X connect 14 0 15 0;
+#X connect 15 0 24 0;
+#X connect 15 1 26 0;
+#X connect 15 2 27 0;
+#X connect 15 3 28 0;
+#X connect 15 4 29 0;
+#X connect 15 5 30 0;
+#X connect 15 6 31 0;
+#X connect 15 7 25 0;
+#X connect 18 0 13 0;
+#X connect 19 0 20 0;
+#X connect 19 0 21 0;
+#X connect 19 0 22 0;
+#X connect 19 0 20 1;
+#X connect 20 0 21 1;
+#X connect 20 1 22 1;
+#X connect 21 0 2 0;
+#X connect 22 0 2 1;
+#X connect 23 0 13 0;
+#X connect 23 1 13 1;

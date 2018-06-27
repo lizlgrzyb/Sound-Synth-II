@@ -1,0 +1,47 @@
+#N canvas 906 197 774 528 10;
+#X obj 249 168 f;
+#X obj 279 169 + 1;
+#X msg 269 144 0;
+#X obj 432 358 r clear-all-track-tables;
+#X obj 432 379 f \$1;
+#X obj 70 75 t l b;
+#X obj 432 239 pack f \$1;
+#X obj 432 218 r resize-all-track-tables;
+#X obj 70 297 tabwrite track-\$1-frequency;
+#X text 519 137 need a table saving function \;;
+#X obj 527 103 table track-\$1-frequency;
+#X obj 70 54 r track-\$1-data;
+#X obj 269 124 r clear-all-track-tables;
+#X obj 527 83 table track-\$1-amplitude;
+#X obj 527 63 table track-\$1-flag;
+#X msg 432 260 \; track-\$2-frequency resize \$1 \; track-\$2-amplitude
+resize \$1 \; track-\$2-flag resize \$1 \;;
+#X obj 110 277 tabwrite track-\$1-amplitude;
+#X obj 150 257 tabwrite track-\$1-flag;
+#X obj 70 156 unpack f f f;
+#X msg 432 400 \; track-\$1-frequency const 0 \; track-\$1-amplitude
+const 0 \; track-\$1-flag const 0 \;;
+#X obj 63 369 r save-all-track-tables;
+#X obj 63 390 f \$1;
+#X msg 63 411 \; track-\$1-frequency write ../data/track-\$1-frequencies.txt
+\; track-\$1-amplitude write ../data/track-\$1-amplitudes.txt \; track-\$1-flag
+write write ../data/track-\$1-flags.txt \;;
+#X connect 0 0 1 0;
+#X connect 0 0 8 1;
+#X connect 0 0 16 1;
+#X connect 0 0 17 1;
+#X connect 1 0 0 1;
+#X connect 2 0 0 1;
+#X connect 3 0 4 0;
+#X connect 4 0 19 0;
+#X connect 5 0 18 0;
+#X connect 5 1 0 0;
+#X connect 6 0 15 0;
+#X connect 7 0 6 0;
+#X connect 11 0 5 0;
+#X connect 12 0 2 0;
+#X connect 18 0 8 0;
+#X connect 18 1 16 0;
+#X connect 18 2 17 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;

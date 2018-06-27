@@ -1,0 +1,86 @@
+#N canvas 311 23 713 702 10;
+#X obj 198 194 cos~;
+#X obj 198 169 -~ 0.5;
+#X obj 72 614 soundfiler;
+#X obj 44 133 +~ 1;
+#X obj 44 291 *~;
+#X obj 44 204 +~;
+#X obj 111 172 samphold~;
+#X msg 72 593 read -resize ../../audio/voice.wav \$1-sample;
+#X obj 72 542 loadbang;
+#X obj 72 563 f \$0;
+#X obj 162 564 table \$0-sample;
+#X obj 44 234 tabread4~ \$0-sample;
+#X obj 198 217 +~ 1;
+#X obj 198 238 *~ 0.5;
+#X obj 111 143 r \$0-read-point;
+#X obj 406 541 s \$0-read-point;
+#X obj 44 102 *~ 4410;
+#X obj 44 44 phasor~ 10;
+#X obj 44 409 output~;
+#X obj 44 362 +~;
+#X obj 485 253 cos~;
+#X obj 485 228 -~ 0.5;
+#X obj 331 192 +~ 1;
+#X obj 331 350 *~;
+#X obj 331 263 +~;
+#X obj 365 240 samphold~;
+#X obj 331 293 tabread4~ \$0-sample;
+#X obj 485 276 +~ 1;
+#X obj 485 297 *~ 0.5;
+#X obj 365 217 r \$0-read-point;
+#X obj 331 161 *~ 4410;
+#X msg 406 451 0 \, 44100 7000;
+#X obj 406 472 line;
+#X floatatom 446 513 10 0 0 1 samples - -, f 10;
+#X obj 331 133 wrap~;
+#X obj 331 103 +~ 0.5;
+#X text 426 50 A second copy of the same enveloped looping grain player.
+We use the same [phasor~] for both so that they're locked in a fixed
+relationship \, but we add 0.5 to the 2nd copy so that it's halfway
+out of phase with the first player. When grain playback is fading out
+on the first player \, it's fading in on the second player. This creates
+a crossfade for more continuous audio., f 34;
+#X text 509 407 Traverse a second's worth of samples in 7 seconds \,
+which stretches the audio to 7x its usual length. You can change the
+duration of the ramp to whatever you want., f 23;
+#X floatatom 44 15 5 0 0 0 - - -, f 5;
+#X connect 0 0 12 0;
+#X connect 1 0 0 0;
+#X connect 3 0 5 0;
+#X connect 4 0 19 0;
+#X connect 5 0 11 0;
+#X connect 6 0 5 1;
+#X connect 7 0 2 0;
+#X connect 8 0 9 0;
+#X connect 9 0 7 0;
+#X connect 11 0 4 0;
+#X connect 12 0 13 0;
+#X connect 13 0 4 1;
+#X connect 14 0 6 0;
+#X connect 16 0 3 0;
+#X connect 17 0 1 0;
+#X connect 17 0 6 1;
+#X connect 17 0 16 0;
+#X connect 17 0 35 0;
+#X connect 19 0 18 0;
+#X connect 19 0 18 1;
+#X connect 20 0 27 0;
+#X connect 21 0 20 0;
+#X connect 22 0 24 0;
+#X connect 23 0 19 1;
+#X connect 24 0 26 0;
+#X connect 25 0 24 1;
+#X connect 26 0 23 0;
+#X connect 27 0 28 0;
+#X connect 28 0 23 1;
+#X connect 29 0 25 0;
+#X connect 30 0 22 0;
+#X connect 31 0 32 0;
+#X connect 32 0 33 0;
+#X connect 32 0 15 0;
+#X connect 34 0 30 0;
+#X connect 34 0 25 1;
+#X connect 34 0 21 0;
+#X connect 35 0 34 0;
+#X connect 38 0 17 0;

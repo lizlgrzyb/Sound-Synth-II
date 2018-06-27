@@ -1,0 +1,4 @@
+#N canvas 329 232 1036 449 24;
+#X obj 127 78 channel-strip;
+#X text 85 175 This parent patch just uses an instance of the channel-strip
+abstraction. Right click on it and choose "open" to see inside.;

@@ -1,0 +1,96 @@
+#N canvas 570 119 686 634 10;
+#X obj 55 359 osc~;
+#X floatatom 126 189 10 0 0 1 Hz - -, f 10;
+#X obj 288 360 osc~;
+#X obj 288 402 *~;
+#X obj 393 482 line~;
+#X floatatom 393 411 5 0 255 1 index - -, f 5;
+#X obj 55 306 +~;
+#X obj 393 435 * 10;
+#X obj 55 277 line~;
+#X obj 55 256 pack f 50;
+#X obj 116 209 s carrierFreq;
+#X floatatom 351 221 5 1 100 1 detune-factor - -, f 5;
+#X obj 288 272 *;
+#X obj 322 278 t b f;
+#X obj 322 257 r carrierFreq;
+#X obj 288 324 line~;
+#X obj 288 301 pack 0 50;
+#X obj 55 420 hip~ 5;
+#X obj 55 125 mtof;
+#X obj 55 502 output~;
+#X obj 288 199 / 100;
+#X obj 288 226 + 1;
+#X obj 378 150 / 2;
+#X obj 288 147 random;
+#X obj 288 178 -;
+#X floatatom 86 25 5 21 109 1 MIDI - -, f 5;
+#X text 236 26 On every incoming note \, pick a random amount of "detune"
+for the harmonics The random-range control lets you control just how
+much detuning can happen. With a setting of 0 \, there will be no detuning.
+, f 42;
+#X text 420 243 Multiply the carrier frequency by the detune factor.
+If the detune factor is 1 \, the carrier and modulator frequencies
+will be the same \, creating perfectly evenly spaced partials. Detune
+factors of slightly less or more than 1 will create inharmonic partials
+, f 36;
+#X obj 83 69 t b f;
+#X text 138 232 First \, send the carrier frequency out so that it's
+ready to be multiplied by the detune factor when the "bang" above occurs.
+, f 21;
+#X text 486 422 The modulation index can go quite high \, but the GUI
+control here is limited to 0-255 to give some typical sounding results.
+, f 21;
+#X text 110 404 High-pass filter the signal since FM often has a strong
+DC (0Hz) component. This will filter it out., f 18;
+#X obj 393 459 pack 0 50;
+#X floatatom 347 101 5 0 9 1 detune-random-range - -, f 5;
+#X obj 347 121 t b f f;
+#X text 95 359 << carrier oscillator, f 12;
+#X text 328 361 << modulation oscillator, f 14;
+#X floatatom 568 93 5 0 0 0 - - -, f 5;
+#X obj 568 72 ctlin 1;
+#X obj 572 121 bendin;
+#X floatatom 572 142 5 0 0 0 - - -, f 5;
+#X obj 572 162 / 8192;
+#X floatatom 572 204 5 0 0 0 - - -, f 5;
+#X obj 572 183 - 1;
+#X connect 0 0 17 0;
+#X connect 2 0 3 0;
+#X connect 3 0 6 1;
+#X connect 4 0 3 1;
+#X connect 5 0 7 0;
+#X connect 6 0 0 0;
+#X connect 7 0 32 0;
+#X connect 8 0 6 0;
+#X connect 9 0 8 0;
+#X connect 12 0 16 0;
+#X connect 13 0 12 0;
+#X connect 13 1 12 1;
+#X connect 14 0 13 0;
+#X connect 15 0 2 0;
+#X connect 16 0 15 0;
+#X connect 17 0 19 0;
+#X connect 17 0 19 1;
+#X connect 18 0 1 0;
+#X connect 18 0 9 0;
+#X connect 18 0 10 0;
+#X connect 20 0 21 0;
+#X connect 21 0 11 0;
+#X connect 21 0 12 0;
+#X connect 22 0 24 1;
+#X connect 23 0 24 0;
+#X connect 24 0 20 0;
+#X connect 25 0 28 0;
+#X connect 28 0 23 0;
+#X connect 28 1 18 0;
+#X connect 32 0 4 0;
+#X connect 33 0 34 0;
+#X connect 34 0 23 0;
+#X connect 34 1 23 1;
+#X connect 34 2 22 0;
+#X connect 38 0 37 0;
+#X connect 39 0 40 0;
+#X connect 40 0 41 0;
+#X connect 41 0 43 0;
+#X connect 43 0 42 0;

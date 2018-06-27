@@ -1,0 +1,139 @@
+#N canvas 198 23 1064 701 10;
+#X obj 321 67 metro 1000;
+#X obj 321 88 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 315 174 mod 16;
+#X obj 313 258 select 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15, f 62
+;
+#X floatatom 377 211 5 0 0 0 - - -, f 5;
+#X obj 321 38 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 314 143 f;
+#X obj 358 145 + 1;
+#X obj 313 293 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 336 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 358 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 382 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 405 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 428 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 450 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 474 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 497 295 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 656 331 spigot;
+#X text 697 331 this lets things flow through when it recieves non-zero
+input, f 36;
+#X obj 519 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 543 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 337 395 inlet gain;
+#X obj 417 392 inlet;
+#X obj 515 393 inlet;
+#X text 453 393 record;
+#X text 555 392 play;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array \$0-sample 100 float 3;
+#A 0 -0.000292259 -0.000892279 -0.0014828 -0.00150944 -0.000838137
+0.000309377 0.00137276 0.00171151 0.00119673 0.000142029 -0.000839757
+-0.00125044 -0.0010239 -0.000394089 0.000225983 0.000465647 0.000348809
+0.000217981 0.000322045 0.000725356 0.00115595 0.00138379 0.0013594
+0.00101478 0.000639112 0.000519404 0.000748074 0.00128774 0.00184342
+0.00217084 0.00213808 0.00175744 0.00126258 0.000988323 0.00110176
+0.0014259 0.00170829 0.0018608 0.00183093 0.00163057 0.00136764 0.00117368
+0.00110187 0.00107116 0.00101872 0.000911077 0.000720119 0.000394909
+-2.52598e-05 -0.000448843 -0.000638369 -0.000465432 -8.81868e-05 0.000290614
+0.000383617 0.000198967 -2.53817e-05 -9.528e-05 3.21272e-05 0.000202535
+0.000246962 0.000201608 0.00027722 0.000565295 0.00104774 0.00155224
+0.00179181 0.00156179 0.000992367 0.000428564 0.000126508 0.000203831
+0.000568447 0.00109168 0.00154117 0.00167421 0.00140143 0.000809003
+0.000221052 -6.76649e-05 -3.02792e-05 0.00025445 0.000663619 0.000868759
+0.000758004 0.000424581 -1.44039e-05 -0.000384592 -0.000603841 -0.000690519
+-0.000695198 -0.000579974 -0.000437595 -0.000451505 -0.000652193 -0.000985092
+-0.00118563 -0.00098818 -0.00053989 -9.31339e-05;
+#X coords 0 1 100 -1 200 140 1;
+#X restore 754 459 graph;
+#X obj 294 504 tabwrite~ \$0-sample;
+#X obj 239 400 adc~;
+#X obj 569 295 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 591 297 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 610 297 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 634 297 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 683 294 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 492 442 f;
+#X obj 540 442 + 1;
+#X obj 540 467 mod 4;
+#X obj 484 496 select 0 1 2 3, f 24;
+#X obj 483 535 tabplay~ \$0-sample;
+#X obj 513 560 tabplay~ \$0-sample;
+#X obj 538 582 tabplay~ \$0-sample;
+#X obj 575 604 tabplay~ \$0-sample;
+#X obj 487 635 *~;
+#X text 535 652 then send audio somewhere;
+#X text 619 538 this is polyphony;
+#X text 49 460 You need a bang to start and stop record;
+#X obj 345 451 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 136 132 this will be sampler;
+#X text 175 549 this will be the processing for sampler;
+#X floatatom 411 41 5 0 0 0 - - -, f 5;
+#X obj 748 292 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 656 352 print;
+#X connect 0 0 1 0;
+#X connect 1 0 6 0;
+#X connect 2 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 8 0;
+#X connect 3 1 9 0;
+#X connect 3 2 10 0;
+#X connect 3 3 11 0;
+#X connect 3 4 12 0;
+#X connect 3 5 13 0;
+#X connect 3 6 14 0;
+#X connect 3 7 15 0;
+#X connect 3 8 16 0;
+#X connect 3 9 19 0;
+#X connect 3 10 20 0;
+#X connect 3 11 29 0;
+#X connect 3 12 30 0;
+#X connect 3 13 31 0;
+#X connect 3 14 32 0;
+#X connect 3 15 17 0;
+#X connect 3 16 33 0;
+#X connect 5 0 0 0;
+#X connect 6 0 7 0;
+#X connect 6 0 2 0;
+#X connect 7 0 6 1;
+#X connect 17 0 51 0;
+#X connect 22 0 46 0;
+#X connect 23 0 34 0;
+#X connect 28 0 27 0;
+#X connect 34 0 35 0;
+#X connect 34 0 37 0;
+#X connect 35 0 36 0;
+#X connect 36 0 34 1;
+#X connect 37 0 38 0;
+#X connect 37 1 39 0;
+#X connect 37 2 40 0;
+#X connect 37 3 41 0;
+#X connect 38 0 42 0;
+#X connect 39 0 42 0;
+#X connect 40 0 42 0;
+#X connect 41 0 42 0;
+#X connect 46 0 27 0;
+#X connect 49 0 0 1;
+#X connect 50 0 17 1;

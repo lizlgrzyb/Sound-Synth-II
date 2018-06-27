@@ -1,0 +1,73 @@
+#N canvas 70 24 1028 700 10;
+#X obj 292 296 cos~;
+#X obj 292 388 snapshot~;
+#X floatatom 292 409 10 0 0 0 - - -, f 10;
+#X obj 212 323 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 212 343 metro 100;
+#X obj 212 303 loadbang;
+#X floatatom 292 182 5 0 0 0 - - -, f 5;
+#X obj 292 200 sig~;
+#X obj 292 221 -~ 0.5;
+#X obj 292 242 *~ 0.5;
+#X obj 625 301 cos~;
+#X obj 625 393 snapshot~;
+#X floatatom 625 414 10 0 0 0 - - -, f 10;
+#X obj 681 326 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 681 346 metro 100;
+#X obj 681 306 loadbang;
+#X floatatom 625 187 5 0 0 0 - - -, f 5;
+#X obj 625 205 sig~;
+#X obj 625 322 +~ 1;
+#X text 681 187 From -0.5 to 0.5;
+#X text 290 159 From 0 to 1;
+#X floatatom 75 187 5 0 0 0 - - -, f 5;
+#X text 85 165 From 0 to 1;
+#X obj 75 311 cos;
+#X obj 75 226 - 0.5;
+#X obj 75 247 * 0.5;
+#X floatatom 75 332 10 0 0 0 - - -, f 10;
+#X obj 75 268 * 6.2832;
+#X obj 78 109 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 625 343 *~ 0.5;
+#X obj 625 124 - 0.5;
+#X text 64 490 Four ways of getting basically the same thing. The final
+three are at audio rate \, so they're good for real-time enveloping.
+;
+#X text 339 288 Tilde version of cos~ multiplies input by 2pi automatically.
+, f 25;
+#X text 364 386 << use [snapshot~] to take a control value snapshot
+of an audio signal, f 29;
+#X text 372 199 This give you the positive part of a sine wave cycle
+\, perfect for amplitude enveloping small grains of audio, f 25;
+#X text 646 246 This raises a sine wave to be between 0 and 1 instead
+of -1 to 1 - a "Hann" window, f 28;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 3 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 0 0;
+#X connect 10 0 18 0;
+#X connect 11 0 12 0;
+#X connect 13 0 14 0;
+#X connect 14 0 11 0;
+#X connect 15 0 13 0;
+#X connect 16 0 17 0;
+#X connect 17 0 10 0;
+#X connect 18 0 29 0;
+#X connect 21 0 24 0;
+#X connect 23 0 26 0;
+#X connect 24 0 25 0;
+#X connect 25 0 27 0;
+#X connect 27 0 23 0;
+#X connect 28 0 21 0;
+#X connect 28 0 6 0;
+#X connect 28 0 30 0;
+#X connect 29 0 11 0;
+#X connect 30 0 16 0;

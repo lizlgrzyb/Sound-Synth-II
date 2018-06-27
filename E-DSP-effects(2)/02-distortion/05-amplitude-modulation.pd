@@ -1,0 +1,32 @@
+#N canvas 530 203 598 472 10;
+#X obj 66 319 output~;
+#X obj 66 204 *~;
+#X floatatom 174 78 10 0 0 1 Hz - -, f 10;
+#X msg 66 18 open ../../audio/voice.wav \, start;
+#X obj 66 69 readsf~;
+#X msg 76 37 stop;
+#X obj 219 271 spectrum~ 4096 4;
+#X obj 174 161 +~ 1;
+#X obj 174 182 /~ 2;
+#X obj 174 140 osc~;
+#X obj 174 119 line~;
+#X obj 174 98 pack f 40;
+#X text 378 270 You can see in the spectrum that the same sidebands
+are created as in ring modulation \, but the original partial still
+remains., f 25;
+#X text 225 162 Here \, we offset the sine wave signal by 1 \, then
+divide by two so that the amplitude is moving between 0 and 1 rather
+than -1 and +1, f 49;
+#X connect 1 0 0 0;
+#X connect 1 0 0 1;
+#X connect 1 0 6 0;
+#X connect 2 0 11 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 4 1 3 0;
+#X connect 5 0 4 0;
+#X connect 7 0 8 0;
+#X connect 8 0 1 1;
+#X connect 9 0 7 0;
+#X connect 10 0 9 0;
+#X connect 11 0 10 0;

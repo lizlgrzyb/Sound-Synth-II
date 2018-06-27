@@ -1,0 +1,66 @@
+#N canvas 446 57 897 593 10;
+#X obj 442 149 table \$0-sample;
+#X obj 340 220 soundfiler;
+#X obj 340 168 f \$0;
+#X obj 425 260 unpack f f f f s;
+#X obj 64 378 output~;
+#X obj 340 148 loadbang;
+#X obj 64 207 phasor~;
+#X obj 64 298 *~;
+#X obj 340 441 s num-samples;
+#X obj 380 317 /;
+#X text 504 354 If we divide the number of samples in the file by its
+sampling rate \, we can get the duration of the file in seconds, f
+24;
+#X floatatom 435 301 10 0 0 1 Hz - -, f 10;
+#X floatatom 395 351 10 0 0 1 sec - -, f 10;
+#X obj 320 168 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 91 261 r num-samples;
+#X obj 380 413 s sample-duration;
+#X obj 64 87 r sample-duration;
+#X obj 64 108 t b f;
+#X msg 64 129 1;
+#X obj 64 150 /;
+#X floatatom 64 181 10 0 0 1 Hz - -, f 10;
+#X text 218 33 Frequency is the reciprocal of period. In order to make
+a [phasor~] repeat at the right frequency to play the sample back at
+normal speed \, we need to take the sample's duration (period) and
+take the reciprocal (1/period). Try shift-dragging on the [phasor~]
+frequency to speed up or slow down playback. You can also try negative
+[phasor~] frequencies to play the sample in reverse.;
+#X msg 340 191 read -resize record.wav \$1-sample;
+#X text 92 131 converting period to frequency;
+#X text 146 176 Negative nums play in reverse, f 19;
+#X obj 354 383 f;
+#X obj 279 352 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 261 333 recall hz;
+#X obj 64 323 tabread4~ \$0-sample;
+#X text 117 279 tabread4~ gets rid of a lot of artifacts by using interpolation
+, f 30;
+#X connect 1 0 8 0;
+#X connect 1 0 9 0;
+#X connect 1 1 3 0;
+#X connect 2 0 22 0;
+#X connect 3 0 9 1;
+#X connect 3 0 11 0;
+#X connect 5 0 2 0;
+#X connect 6 0 7 0;
+#X connect 7 0 28 0;
+#X connect 9 0 12 0;
+#X connect 9 0 15 0;
+#X connect 9 0 25 0;
+#X connect 13 0 2 0;
+#X connect 14 0 7 1;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 17 1 19 1;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 20 0 6 0;
+#X connect 22 0 1 0;
+#X connect 25 0 15 0;
+#X connect 26 0 25 0;
+#X connect 28 0 4 0;
+#X connect 28 0 4 1;

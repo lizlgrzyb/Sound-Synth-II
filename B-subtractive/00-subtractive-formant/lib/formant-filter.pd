@@ -1,0 +1,21 @@
+#N canvas 646 109 607 363 10;
+#X obj 56 91 r~ saw;
+#X obj 56 263 throw~ formant;
+#X obj 56 151 bp~ \$1 \$2;
+#X obj 56 172 *~ \$3;
+#X text 151 77 We use [send~]/[receive~] in cases where there is one
+source and many destinations. Here \, there is one source (the sawtooth
+wave to be filtered) \, and many destinations (the formant filter abstraction
+instances \, like this one).;
+#X text 164 148 The 3 creation arguments to this abstraction are the
+band-pass center frequency \, band-pass filter Q \, and a gain value
+in linear amplitude.;
+#X text 174 234 We use [throw~]/[catch~] in cases where there are many
+sources \, but one destination. Here \, there are 5 instances of this
+formant-filter.pd abstraction \, which are the signal sources. The
+single destination is the [catch~] in the master patch \, which sends
+the summed signal to the enveloping subpatch before output to the [dac~]
+;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 1 0;

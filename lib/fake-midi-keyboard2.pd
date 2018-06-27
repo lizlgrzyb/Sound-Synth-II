@@ -1,0 +1,40 @@
+#N canvas 206 183 865 395 10;
+#X obj 208 40 inlet;
+#X obj 108 325 outlet;
+#X obj 218 325 outlet;
+#X msg 440 211 97 36 \, 119 37 \, 115 38 \, 101 39 \, 100 40 \, 102
+41 \, 116 42 \, 103 43 \, 121 44 \, 104 45 \, 117 46 \, 106 47 \, 107
+48 \, 111 49 \, 108 50 \, 112 51 \, 59 52;
+#X obj 605 99 table \$0-key-midi-map 127;
+#X msg 460 169 \; \$1-key-midi-map bounds 0 127 127 0 \;;
+#X obj 440 108 loadbang;
+#X obj 460 149 f \$0;
+#X obj 440 273 s \$0-key-midi-map;
+#X obj 108 232 tabread \$0-key-midi-map;
+#X obj 108 40 keyname;
+#X obj 108 121 t b f;
+#X obj 108 162 symbol;
+#X obj 288 172 select 1;
+#X msg 288 270 127;
+#X obj 88 81 spigot;
+#X obj 108 182 list fromsymbol;
+#X text 314 24 This won't work on newer MacOS due to bug in Tk key
+events. Hopefully fixed by next Pd version? Would be great because
+we could have keydown and keyup events for MIDI note on and note off
+events.;
+#X connect 0 0 15 1;
+#X connect 3 0 8 0;
+#X connect 6 0 7 0;
+#X connect 6 0 3 0;
+#X connect 7 0 5 0;
+#X connect 9 0 1 0;
+#X connect 10 0 15 0;
+#X connect 10 1 12 1;
+#X connect 11 0 12 0;
+#X connect 11 1 13 0;
+#X connect 12 0 16 0;
+#X connect 13 0 14 0;
+#X connect 13 1 2 0;
+#X connect 14 0 2 0;
+#X connect 15 0 11 0;
+#X connect 16 0 9 0;

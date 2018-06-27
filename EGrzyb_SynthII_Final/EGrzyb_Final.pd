@@ -1,0 +1,45 @@
+#N canvas 0 23 1024 672 10;
+#X obj 886 490 catch~ verbreturnL;
+#X obj 921 510 catch~ verbreturnR;
+#N canvas 0 23 1077 658 extrastuff 0;
+#X obj 92 215 notegen;
+#X obj 250 155 soundfiler;
+#N canvas 0 23 450 278 (subpatch) 0;
+#X array \$0-sample 4e+06 float 2;
+#X coords 0 1 4e+06 -1 150 75 1 0 0;
+#X restore 80 83 graph;
+#X obj 238 260 tabplay~ \$0-sample;
+#X obj 238 237 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 238 281 *~ 1;
+#X obj 100 280 throw~ verbsendL;
+#X obj 84 299 throw~ verbsendR;
+#X obj 241 304 throw~ verbsendL;
+#X obj 225 323 throw~ verbsendR;
+#X obj 249 70 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 249 99 pack \$0;
+#X msg 250 128 read -resize example.wav \$1-sample;
+#X connect 0 0 6 0;
+#X connect 0 0 7 0;
+#X connect 3 0 5 0;
+#X connect 4 0 3 0;
+#X connect 5 0 9 0;
+#X connect 5 0 8 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 1 0;
+#X restore 1112 616 pd extrastuff;
+#X text 8 417 this is the reverb;
+#X text 19 90 This is an old hw assignment I was using to test the
+reverb with, f 16;
+#X text 125 647 There are outlets down here \, or you can use throw
+catch;
+#X obj 125 323 rev4~, f 25;
+#X obj 124 -12 wavesynth;
+#X obj 886 536 output~;
+#X connect 0 0 8 0;
+#X connect 1 0 8 1;
+#X connect 7 0 6 0;
+#X connect 7 0 6 1;
+#X coords 0 0 1 1 85 60 0;

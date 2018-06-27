@@ -1,0 +1,49 @@
+#N canvas 242 23 792 735 12;
+#X obj 28 481 osc~;
+#X obj 28 620 throw~ sum-bus;
+#X obj 28 571 *~;
+#X obj 28 26 r~ pitch;
+#X obj 28 73 mtof~;
+#X obj 28 116 *~ \$1;
+#X text 79 71 MIDI to frequency;
+#X text 83 117 Creation argument \$1 is the partial number.;
+#X text 125 205 Convert back to MIDI in order to look up partial amplitude
+in MIDI-oriented spectral envelope table.;
+#X text 217 260 This parameter shifts the spectral envelope left and
+right.;
+#X text 296 297 Look up the appropriate amplitude from the table. Note
+that we use tabread4 to get interpolated values since the incoming
+MIDI note numbers used as indices are fractional.;
+#X text 174 598 Finally \, send to a wireless summing bus via [throw~].
+All the [throw~] objects in the various instances of this abstraction
+will add into the one [catch~ sum-bus] in the parent patch.;
+#X obj 76 260 -~;
+#X obj 76 212 ftom~;
+#X obj 76 310 tabread4~ spectral-envelope;
+#X obj 119 259 r~ whammybar;
+#X obj 76 424 lop~ 1;
+#X obj 76 468 +~ 50;
+#X obj 76 522 dbtorms~;
+#X text 173 409 Low-pass filter the dB gain values coming out of the
+spectral envelope gain table so that any sudden discontinuities are
+smoothed out.;
+#X text 173 462 Add 50dB because the gain table only goes from 0 to
+50dB \, and we need to get up to 100dB (unity) at maximum.;
+#X text 173 522 Convert from dB scale to RMS scale (0-1).;
+#X obj 76 364 max~ 0;
+#X text 173 359 If dB values lower than 0dB are read out of the gain
+table \, output 0dB instead.;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 0 0;
+#X connect 5 0 13 0;
+#X connect 12 0 14 0;
+#X connect 13 0 12 0;
+#X connect 14 0 22 0;
+#X connect 15 0 12 1;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 2 1;
+#X connect 22 0 16 0;

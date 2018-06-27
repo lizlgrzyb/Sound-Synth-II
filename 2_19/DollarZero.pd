@@ -1,0 +1,13 @@
+#N canvas 364 113 772 580 10;
+#X obj 199 123 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 199 150 f \$0;
+#X floatatom 199 171 5 0 0 0 - - -, f 5;
+#X text 255 148 \$0 is an id number that pd assigns to every patch
+;
+#X text 255 166 It is a garunteed unique id number associated with
+a patch;
+#X text 198 198 In an abstraction inside of a parent patch \, the id
+number will be different.;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;

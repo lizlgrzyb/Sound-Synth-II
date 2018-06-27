@@ -1,0 +1,93 @@
+#N canvas 160 23 1131 772 12;
+#X declare -path ../../lib;
+#X obj 380 582 output~;
+#N canvas 1029 216 409 316 looper 0;
+#X obj 35 232 outlet~;
+#X msg 51 155 stop;
+#X obj 35 23 loadbang;
+#X obj 35 186 readsf~;
+#X msg 35 128 open ../../audio/oboe-D62.wav \, start;
+#X connect 1 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 0 0;
+#X connect 3 1 4 0;
+#X connect 4 0 3 0;
+#X restore 842 139 pd looper;
+#X obj 455 152 moses 1;
+#X obj 501 178 mtof;
+#X obj 501 286 t f b;
+#X obj 380 529 +~;
+#X obj 532 393 +;
+#X obj 532 455 line~;
+#X obj 532 432 pack 0 20;
+#X text 550 245 1/2 period \, in msec;
+#X obj 501 204 t b f;
+#X msg 501 231 500;
+#X obj 501 259 /;
+#X text 570 386 This sum is the delay associated with sigmund~ plus
+the delay of one half period at the current pitch.;
+#X text 227 299 sigmund~'s output tells us the pitch of the signal
+2048 samples ago. We introduce a delay of 2048 samples (converted to
+ms) to account for that latency., f 34;
+#X obj 882 282 r~ input-signal;
+#X obj 455 88 r~ input-signal;
+#X obj 842 173 s~ input-signal;
+#X text 545 178 Fundamental frequency;
+#X obj 550 348 / 44.1;
+#X msg 550 320 2048;
+#X text 596 318 sigmund~'s window size;
+#X obj 112 533 r~ input-signal;
+#X obj 112 582 output~;
+#X text 797 228 Here \, the output is received and sent to \; a delay
+buffer called "04-doubler-del";
+#X text 106 686 Listen to the original sample (left) \, then turn it
+off and listen to the octave-doubled version (right).;
+#X text 110 70 sigmund~ can analyze windows of audio (in this case
+\, 2048 samples at a time) \, and determine the current pitch in MIDI
+note numbers. But there's a latency associated with this: the pitch
+it currently reports was actually the pitch 2048 samples ago. We have
+to account for this latency below., f 42;
+#X obj 855 694 declare -path ../../lib;
+#X obj 305 414 delread~ \$0-doubler-del;
+#X obj 882 311 delwrite~ \$0-doubler-del 100;
+#X obj 398 495 delread4~ \$0-doubler-del;
+#X text 635 477 The technique here is to mix down two signals: the
+original input \, and copy that is delayed by exactly one half the
+period of the current pitch. The simplest example would be a straight
+sine wave. If you mix a sine wave with a copy of itself delayed by
+one half its period (i.e. \, 180 degrees out of phase) \, it disappears
+because it cancels out completely. With real signals that have several
+harmonics \, the cancellation only happens for the odd harmonics (the
+fundamental \, the 3rd harmonic \, the 5th harmonic \, etc). For the
+even harmonics \, the half-cycle delayed signal aligns for constructive
+interference \, so those components of the signal are strengthened
+rather than cancelled out. The result is a spectrum that is identical
+to that of the signal if it were one octave higher.;
+#X text 775 36 The looper sub-patch here just plays an oboe sample
+over and over again. The output is sent over a wireless send~ and received
+at various places in the patch., f 34;
+#X obj 455 120 sigmund~ pitch -npts 2048 -hop 128;
+#X connect 1 0 17 0;
+#X connect 2 1 3 0;
+#X connect 3 0 10 0;
+#X connect 4 0 6 0;
+#X connect 4 1 20 0;
+#X connect 5 0 0 0;
+#X connect 5 0 0 1;
+#X connect 6 0 8 0;
+#X connect 7 0 30 0;
+#X connect 8 0 7 0;
+#X connect 10 0 11 0;
+#X connect 10 1 12 1;
+#X connect 11 0 12 0;
+#X connect 12 0 4 0;
+#X connect 15 0 29 0;
+#X connect 16 0 33 0;
+#X connect 19 0 6 1;
+#X connect 19 0 28 0;
+#X connect 20 0 19 0;
+#X connect 22 0 23 0;
+#X connect 22 0 23 1;
+#X connect 28 0 5 0;
+#X connect 30 0 5 1;
+#X connect 33 0 2 0;

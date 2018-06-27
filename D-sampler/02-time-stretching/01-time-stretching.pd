@@ -1,0 +1,67 @@
+#N canvas 23 23 807 608 10;
+#X obj 322 296 cos~;
+#X obj 322 271 -~ 0.5;
+#X obj 432 249 soundfiler;
+#X obj 42 238 +~ 1;
+#X obj 43 362 *~;
+#X obj 43 275 +~;
+#X obj 181 432 hsl 512 15 0 44100 0 0 empty empty read-point-samples
+-2 -8 0 12 -262144 -1 -1 35200 1;
+#X obj 106 229 samphold~;
+#X msg 432 228 read -resize ../../audio/voice.wav \$1-sample;
+#X obj 432 177 loadbang;
+#X obj 432 198 f \$0;
+#X obj 165 119 table \$0-sample;
+#X obj 43 305 tabread4~ \$0-sample;
+#X obj 322 319 +~ 1;
+#X obj 322 340 *~ 0.5;
+#X obj 43 383 output~;
+#X obj 106 206 r \$0-read-point;
+#X obj 179 453 s \$0-read-point;
+#X text 175 227 Only update the read point at the instant that the
+[phasor~] resets. That's when the amplitude envelope is at zero.,
+f 19;
+#X text 384 302 << Here \, we use the "Hann" window shape (a raised
+inverted cosine) for amplitude enveloping the audio grains, f 35;
+#X text 381 353 The hann window makes repeats smoother \, its like
+a fade in fade out in audio editing, f 38;
+#X obj 152 402 line, f 9;
+#X msg 154 379 0 \, 44100 7000;
+#X text 242 376 scrubbing through in 7 secs, f 19;
+#X obj 43 173 *~ 4410;
+#X text 102 172 << one tenth of a second worth of samples;
+#X floatatom 355 34 5 0 0 0 - - -, f 5;
+#X obj 43 115 phasor~ 10;
+#X obj 372 137 /;
+#X msg 353 113 44100;
+#X obj 402 64 t b f;
+#X floatatom 372 158 5 0 0 0 - - -, f 5;
+#X text 399 41 used to adjust samples AND change phasor;
+#X connect 0 0 13 0;
+#X connect 1 0 0 0;
+#X connect 3 0 5 0;
+#X connect 4 0 15 0;
+#X connect 4 0 15 1;
+#X connect 5 0 12 0;
+#X connect 6 0 17 0;
+#X connect 7 0 5 1;
+#X connect 8 0 2 0;
+#X connect 9 0 10 0;
+#X connect 10 0 8 0;
+#X connect 12 0 4 0;
+#X connect 13 0 14 0;
+#X connect 14 0 4 1;
+#X connect 16 0 7 0;
+#X connect 21 0 6 0;
+#X connect 22 0 21 0;
+#X connect 24 0 3 0;
+#X connect 26 0 30 0;
+#X connect 26 0 24 1;
+#X connect 27 0 1 0;
+#X connect 27 0 7 1;
+#X connect 27 0 24 0;
+#X connect 28 0 31 0;
+#X connect 29 0 28 0;
+#X connect 30 0 29 0;
+#X connect 30 1 28 1;
+#X connect 31 0 27 0;

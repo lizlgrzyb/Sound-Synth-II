@@ -1,0 +1,8 @@
+#N canvas 732 263 466 223 10;
+#X obj 50 105 s track-switch-messages;
+#X obj 50 43 r track-\$1-switch;
+#X obj 50 64 pack f \$1;
+#X msg 50 84 track-switches \$2 \$1;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;

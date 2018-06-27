@@ -1,0 +1,24 @@
+#N canvas 876 182 597 312 10;
+#X obj 79 57 inlet~;
+#X obj 79 137 tabwrite~ \$0-plot;
+#X obj 470 135 bng 15 250 50 0 empty empty show 17 7 0 12 -262144 -1
+-1;
+#X obj 186 238 table \$0-plot 4410;
+#X obj 416 181 f \$0;
+#X msg 416 201 \; pd-\$1-plot vis 1;
+#X obj 310 49 loadbang;
+#X obj 400 135 tgl 15 0 empty empty poll 17 7 0 12 -262144 -1 -1 1
+1;
+#X msg 182 24 100;
+#X obj 140 80 metro;
+#X floatatom 182 47 10 0 0 0 - - -, f 10;
+#X connect 0 0 1 0;
+#X connect 2 0 4 0;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 6 0 8 0;
+#X connect 7 0 9 0;
+#X connect 8 0 10 0;
+#X connect 9 0 1 0;
+#X connect 10 0 9 1;
+#X coords 0 -1 1 1 130 40 1 395 115;

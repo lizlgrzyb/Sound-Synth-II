@@ -1,0 +1,32 @@
+#N canvas 465 232 774 431 10;
+#X obj 81 287 output~;
+#X msg 91 49 stop;
+#X floatatom 178 106 5 0 0 0 - - -, f 5;
+#X obj 178 126 osc~ 1;
+#X obj 178 168 +~ 3500;
+#X obj 178 147 *~ 3000;
+#X obj 81 80 readsf~;
+#X msg 81 29 open ../../audio/piano-36-short.wav \, start;
+#X text 185 212 [vcf~] is a band-pass filter just like [bp~] \, but
+it lets you control the center frequency with a signal. This offers
+finer control over the center frequency so that you can make smoother
+sweeps.;
+#X obj 81 216 vcf~ 5;
+#X text 188 304 You'll need to push the gain since the filter ends
+up making the signal quieter. To actually use this effect \, you should
+add a makeup gain stage after [vcf~] and calibrate it so that the input
+and output gains are the same for a given Q setting.;
+#X text 248 126 Here \, we're using an LFO to "wah" the signal \, but
+you could easily use the input from a MIDI foot pedal instead. This
+re-ranging and offset of the LFO sets its output to 500-6500Hz. Feel
+free to try a different range.;
+#X connect 1 0 6 0;
+#X connect 2 0 3 0;
+#X connect 3 0 5 0;
+#X connect 4 0 9 1;
+#X connect 5 0 4 0;
+#X connect 6 0 9 0;
+#X connect 6 1 7 0;
+#X connect 7 0 6 0;
+#X connect 9 0 0 0;
+#X connect 9 0 0 1;

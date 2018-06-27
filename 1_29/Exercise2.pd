@@ -1,0 +1,33 @@
+#N canvas 105 200 665 503 10;
+#X obj 141 256 osc~;
+#X obj 141 62 metro 100;
+#X obj 141 93 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 141 31 tgl 15 0 empty empty Rand_On/Off 17 7 0 10 -262144 -1
+-1 1 1;
+#X floatatom 141 173 5 0 0 0 - - -, f 5;
+#X obj 141 124 random 1000;
+#X obj 141 149 + 300;
+#X obj 137 348 dac~;
+#X obj 234 192 hsl 128 15 0 100 0 0 empty empty dB -2 -8 0 10 -262144
+-1 -1 10100 1;
+#X obj 231 251 dbtorms;
+#X floatatom 231 225 5 0 0 0 - - -, f 5;
+#X floatatom 248 274 5 0 0 0 - - -, f 5;
+#X text 280 250 converts dB to rms;
+#X text 272 223 This is the volume control with conversion to dB scale.
+;
+#X obj 141 301 *~;
+#X connect 0 0 14 0;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X connect 3 0 1 0;
+#X connect 4 0 0 0;
+#X connect 5 0 6 0;
+#X connect 6 0 4 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 9 0;
+#X connect 11 0 14 1;
+#X connect 14 0 7 0;
+#X connect 14 0 7 1;

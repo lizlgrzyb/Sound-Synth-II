@@ -1,0 +1,50 @@
+#N canvas 276 105 815 602 10;
+#X obj 34 485 output~;
+#X msg 34 48 open ../../audio/voice.wav \, start;
+#X msg 44 68 stop;
+#X obj 156 448 waveform-plotter;
+#X obj 156 358 spectrum~ 4096 4;
+#X obj 34 205 hilbert~;
+#X obj 127 218 cos~;
+#X obj 170 196 +~ -0.25;
+#X obj 170 219 cos~;
+#X obj 34 265 *~;
+#X obj 100 265 *~;
+#X obj 34 325 -~;
+#X floatatom 127 147 5 0 0 1 Hz - -, f 5;
+#X obj 127 172 phasor~;
+#X text 209 219 cosine and sine waves to form the real and imaginary
+part of a complex sinusoid, f 41;
+#X text 191 147 << shift frequency;
+#X text 134 265 << complex multiplier (calculates real part), f 24
+;
+#X obj 34 99 readsf~;
+#X text 325 20 This patch is from Pd's built-in documentation: H09.ssb.modulation.pd.
+It shows how to use the hilbert transform to create 2 copies of an
+input signal that are separated in phase by a quarter cycle (phase
+quadrature). These signals can be multiplied by a complex sinusoid
+to shift the frequency up or down by any number of Hz. It's like ring
+modulation \, but with the lower sideband missing.;
+#X text 365 120 The critical thing to understand is that ALL partials
+in the spectrum will be uniformly shifted by the same number of Hz.
+If you frequency-shift a harmonic spectrum \, the resulting partials
+in the spectrum will no longer be harmonically related \, which destroys
+the pitch of the tone.;
+#X connect 1 0 17 0;
+#X connect 2 0 17 0;
+#X connect 5 0 9 0;
+#X connect 5 1 10 0;
+#X connect 6 0 9 1;
+#X connect 7 0 8 0;
+#X connect 8 0 10 1;
+#X connect 9 0 11 0;
+#X connect 10 0 11 1;
+#X connect 11 0 0 0;
+#X connect 11 0 0 1;
+#X connect 11 0 4 0;
+#X connect 11 0 3 0;
+#X connect 12 0 13 0;
+#X connect 13 0 7 0;
+#X connect 13 0 6 0;
+#X connect 17 0 5 0;
+#X connect 17 1 1 0;

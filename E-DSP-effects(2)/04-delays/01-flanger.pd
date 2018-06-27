@@ -1,0 +1,56 @@
+#N canvas 163 317 761 439 10;
+#X obj 91 307 output~;
+#X msg 91 39 open ../../audio/voice.wav \, start;
+#X obj 91 90 readsf~;
+#X msg 101 59 stop;
+#X text 304 87 A flanger is really just an echo delay \, but with very
+short delay times that add a pitched sound to the signal. In order
+to get very short delay time \, we need to re-block the audio in the
+subpatch here. Take a look inside for more detail...;
+#N canvas 0 23 760 418 re-blocking 0;
+#X obj 73 35 inlet~;
+#X obj 73 336 outlet~;
+#X obj 263 35 block~ 1;
+#X obj 73 142 +~;
+#X obj 130 283 delwrite~ \$0-delay 1000;
+#X obj 158 193 *~;
+#X obj 228 232 / 100;
+#X obj 228 253 clip 0 0.999;
+#X obj 158 172 delread4~ \$0-delay 100;
+#X obj 228 202 inlet;
+#X text 344 20 This [block~] object tells this subpatch to calculate
+DSP on every single sample instead of waiting for a block of 64 samples
+before processing audio. That allows for a delay time of as small as
+1/44100 seconds. You can re-block to any number of samples \, as long
+as it's a power of 2;
+#X obj 158 109 inlet;
+#X obj 158 130 pack f 100;
+#X obj 158 151 line~;
+#X text 313 110 We're also using the interpolating delay line reader
+object \, [delread4~] instead of [delread~]. That allows us to use
+a signal to control the delay time as it changes. While the delay time
+is actively ramping \, we'll get tape-like pitch bends.;
+#X connect 0 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 1 0;
+#X connect 5 0 3 1;
+#X connect 6 0 7 0;
+#X connect 7 0 5 1;
+#X connect 8 0 5 0;
+#X connect 9 0 6 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 8 0;
+#X restore 91 210 pd re-blocking;
+#X floatatom 187 182 5 0 100 1 feedback-% - -, f 5;
+#X floatatom 133 133 5 3 200 1 time - -, f 5;
+#X obj 133 153 / 10;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X connect 2 1 1 0;
+#X connect 3 0 2 0;
+#X connect 5 0 0 0;
+#X connect 5 0 0 1;
+#X connect 6 0 5 2;
+#X connect 7 0 8 0;
+#X connect 8 0 5 1;

@@ -1,0 +1,62 @@
+#N canvas 228 175 837 510 10;
+#X obj 520 154 table \$0-sample;
+#X obj 418 225 soundfiler;
+#X obj 418 173 f \$0;
+#X msg 418 196 read -resize ../../audio/piano-36-short.wav \$1-sample
+;
+#X obj 503 265 unpack f f f f s;
+#X obj 64 378 output~;
+#X obj 418 153 loadbang;
+#X obj 64 319 tabread~ \$0-sample;
+#X obj 418 446 s num-samples;
+#X obj 458 322 /;
+#X text 582 359 If we divide the number of samples in the file by its
+sampling rate \, we can get the duration of the file in seconds, f
+24;
+#X floatatom 513 306 10 0 0 1 Hz - -, f 10;
+#X floatatom 473 356 10 0 0 1 sec - -, f 10;
+#X obj 398 173 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 458 403 s sample-duration;
+#X obj 125 139 r sample-duration;
+#X obj 64 298 line~;
+#X obj 64 207 pack f f;
+#X msg 64 258 0 \, \$1 \$2;
+#X text 131 255 << jump to sample 0 \, then ramp linearly to sample
+\$1 in \$2 msec, f 22;
+#X obj 125 160 * 1000;
+#X text 178 162 << multiply by 1000 to convert seconds to milliseconds
+, f 20;
+#X obj 79 69 r num-samples;
+#X obj 79 90 - 1;
+#X obj 64 118 f;
+#X obj 42 83 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 177 49 Sometimes \, you don't want looping sample playback
+\, so a one-shot line is better than a repeating phasor. We want to
+ramp from sample 0 to sample N-1 \, where N is the total number of
+samples. We'll store N-1 in the cold inlet of a [float] object \, and
+use a bang to its hot inlet to send the value through when we want
+playback., f 72;
+#X connect 1 0 8 0;
+#X connect 1 0 9 0;
+#X connect 1 1 4 0;
+#X connect 2 0 3 0;
+#X connect 3 0 1 0;
+#X connect 4 0 9 1;
+#X connect 4 0 11 0;
+#X connect 6 0 2 0;
+#X connect 7 0 5 0;
+#X connect 7 0 5 1;
+#X connect 9 0 12 0;
+#X connect 9 0 14 0;
+#X connect 13 0 2 0;
+#X connect 15 0 20 0;
+#X connect 16 0 7 0;
+#X connect 17 0 18 0;
+#X connect 18 0 16 0;
+#X connect 20 0 17 1;
+#X connect 22 0 23 0;
+#X connect 23 0 24 1;
+#X connect 24 0 17 0;
+#X connect 25 0 24 0;

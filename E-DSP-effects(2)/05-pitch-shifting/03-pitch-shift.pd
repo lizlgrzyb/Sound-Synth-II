@@ -1,0 +1,27 @@
+#N canvas 364 269 727 462 10;
+#X declare -path ./lib;
+#X floatatom 200 178 5 0 0 1 semitones - -, f 5;
+#X obj 100 321 output~;
+#X obj 100 81 readsf~;
+#X msg 110 50 stop;
+#X obj 209 277 spectrum~ 4096 4;
+#X obj 476 382 declare -path ./lib;
+#X obj 100 221 pitchShift~;
+#X text 259 73 This [pitchShift~] abstraction implements the same doppler-based
+pitch shifting technique described in the previous patches \, and allows
+you to shift real-time input signals up or down in pitch by any number
+of semitones. Fractional semitones are ok too \, so you could use this
+to create vibrato on sounds that didn't have vibrato.;
+#X msg 100 30 open ../../audio/oboe-D62.wav \, start;
+#X text 351 194 Looking at the spectrum \, notice how it stretches
+or contracts with increases or decreases in pitch. This is important
+with harmonic spectra \, whose components will remain harmonically
+related even after the pitch shift.;
+#X connect 0 0 6 1;
+#X connect 2 0 6 0;
+#X connect 2 1 8 0;
+#X connect 3 0 2 0;
+#X connect 6 0 1 0;
+#X connect 6 0 1 1;
+#X connect 6 0 4 0;
+#X connect 8 0 2 0;

@@ -1,0 +1,20 @@
+#N canvas 145 426 466 320 10;
+#X floatatom 80 70 10 0 0 0 - - -, f 10;
+#X obj 18 44 *~;
+#X obj 18 73 +~ 1;
+#X obj 18 189 *~;
+#X obj 62 153 catch~ missive-\$3-\$1-\$2-gain;
+#X obj 18 257 throw~ missive-\$3-\$1-sum-bus;
+#X obj 80 42 r missive-\$3-numSamps-\$1-\$2;
+#X text 292 60 \$1: Wavetable set \; \$2: wavetable-ID \; \$3: missive
+voice ID \;;
+#X obj 18 105 tabread4~ missive-\$3-\$1-\$2-wave-guarded;
+#X obj 18 13 r~ missive-\$3-\$1-phasor;
+#X connect 1 0 2 0;
+#X connect 2 0 8 0;
+#X connect 3 0 5 0;
+#X connect 4 0 3 1;
+#X connect 6 0 0 0;
+#X connect 6 0 1 1;
+#X connect 8 0 3 0;
+#X connect 9 0 1 0;

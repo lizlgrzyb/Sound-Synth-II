@@ -1,0 +1,57 @@
+#N canvas 272 23 923 533 10;
+#X obj 65 406 output~;
+#X obj 65 335 *~;
+#X floatatom 300 312 5 0 0 0 - - -, f 5;
+#X obj 300 332 + 100;
+#X obj 300 374 pack f 40;
+#X obj 300 395 line~;
+#X obj 300 353 dbtorms;
+#X msg 65 19 open ../../audio/voice.wav \, start;
+#X msg 75 38 stop;
+#X obj 231 437 waveform-plotter;
+#X obj 65 184 expr~ tanh($v1);
+#X obj 65 91 *~;
+#X floatatom 252 117 5 0 100 1 - - -, f 5;
+#X obj 252 137 + 100;
+#X obj 252 179 pack f 40;
+#X obj 252 200 line~;
+#X obj 252 158 dbtorms;
+#X obj 65 70 readsf~;
+#X text 344 312 << gain drop from unity;
+#X obj 252 66 loadbang;
+#X obj 300 261 loadbang;
+#X msg 300 282 -12;
+#X text 298 116 << overdrive in dB;
+#X text 492 49 The hyperbolic tangent function keeps things bounded
+within -1 and +1 \, but with more gradual curves at the clip point
+than digital hard clipping gives. It's often used as a quick and easy
+approximation of analog soft saturation.;
+#X text 492 119 Notice that the situation is different from hard clipping
+\, where we trimmed waveforms off and then applied makeup gain afterward.
+Here \, we overdrive before the input by a certain number of dB past
+unity \, then we drop the gain afterward so that the signal isn't maxed
+out at unity.;
+#X msg 252 87 0;
+#X connect 1 0 0 0;
+#X connect 1 0 0 1;
+#X connect 1 0 9 0;
+#X connect 2 0 3 0;
+#X connect 3 0 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 1;
+#X connect 6 0 4 0;
+#X connect 7 0 17 0;
+#X connect 8 0 17 0;
+#X connect 10 0 1 0;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 13 0 16 0;
+#X connect 14 0 15 0;
+#X connect 15 0 11 1;
+#X connect 16 0 14 0;
+#X connect 17 0 11 0;
+#X connect 17 1 7 0;
+#X connect 19 0 25 0;
+#X connect 20 0 21 0;
+#X connect 21 0 2 0;
+#X connect 25 0 12 0;

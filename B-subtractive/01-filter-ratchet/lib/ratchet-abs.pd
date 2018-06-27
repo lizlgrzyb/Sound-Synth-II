@@ -1,0 +1,50 @@
+#N canvas 132 113 893 442 10;
+#X obj 241 85 * \$1;
+#X obj 191 338 *~;
+#X obj 351 295 vline~;
+#X obj 351 87 r env-trig;
+#X obj 351 221 pow;
+#X obj 399 176 f \$1;
+#X obj 399 197 - 1;
+#X obj 351 174 f \$2;
+#X obj 351 242 pack f f;
+#X text 461 24 \$1: harmonic number;
+#X text 461 44 \$2: harmonic amplitude;
+#X msg 351 274 0 \, \$1 1 \, 0 \$2 1;
+#X obj 136 94 noise~;
+#X text 498 212 The amplitude of this harmonic is \$2^(\$1-1). This
+is just one kind of spectral envelope - it starts at 1 for the first
+harmonic \, and falls away exponentially for higher harmonics;
+#X obj 351 133 t b b;
+#X obj 476 180 r decay;
+#X text 22 186 two band-pass filters in series with extremely high
+Q to make the filter very tight and narrow, f 24;
+#X obj 327 31 r filter-q;
+#X text 471 286 dollar-arguments in message boxes are different than
+dollar-arguments in object boxes! Know the difference!;
+#X obj 191 374 throw~ sum-\$3;
+#X text 461 64 \$3: voice ID number for the parent [ratchet-voice]
+abstraction;
+#X obj 241 24 r freq-\$3;
+#X obj 191 217 bp~ 1000 75;
+#X obj 191 197 bp~ 1000 75;
+#X connect 0 0 22 1;
+#X connect 0 0 23 1;
+#X connect 1 0 19 0;
+#X connect 2 0 1 1;
+#X connect 3 0 14 0;
+#X connect 4 0 8 0;
+#X connect 5 0 6 0;
+#X connect 6 0 4 1;
+#X connect 7 0 4 0;
+#X connect 8 0 11 0;
+#X connect 11 0 2 0;
+#X connect 12 0 23 0;
+#X connect 14 0 7 0;
+#X connect 14 1 5 0;
+#X connect 15 0 8 1;
+#X connect 17 0 22 2;
+#X connect 17 0 23 2;
+#X connect 21 0 0 0;
+#X connect 22 0 1 0;
+#X connect 23 0 22 0;

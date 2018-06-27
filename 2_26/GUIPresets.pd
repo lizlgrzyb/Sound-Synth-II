@@ -1,0 +1,49 @@
+#N canvas 225 59 830 568 10;
+#X obj 44 48 vsl 15 128 200 2000 0 0 freqs freq-set freq 0 -9 0 10
+-262144 -1 -1 2117 1;
+#X obj 103 47 vsl 15 128 0 1 0 0 amps amp-set amp 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 336 66 hsl 128 15 200 2000 0 0 empty freqs freq -2 -8 0 10 -262144
+-1 -1 2117 1;
+#X obj 335 117 hsl 128 15 0 1 0 0 empty amps amplitude -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 412 282 osc~;
+#X obj 409 255 r freqs;
+#X obj 411 385 dac~;
+#X obj 412 324 *~;
+#X obj 472 304 r amps;
+#X obj 478 435 hradio 15 1 0 3 empty empty Aplitude_Presets 0 -8 0
+10 -262144 -1 -1 0;
+#X msg 432 514 \; amp-set 0 \;;
+#X msg 512 513 \; amp-set 0.5 \;;
+#X msg 597 512 \; amp-set 1 \;;
+#X obj 135 437 hradio 15 1 0 3 empty empty Frequency_Presets 0 -8 0
+10 -262144 -1 -1 0;
+#X msg 89 516 \; freq-set 500 \;;
+#X msg 179 515 \; freq-set 1000 \;;
+#X msg 276 514 \; freq-set 1500 \;;
+#X obj 135 470 select 0 1 2;
+#X obj 478 468 select 0 1 2;
+#X obj 59 335 loadbang;
+#X text 118 335 loads a bang when patch opens;
+#X msg 59 369 2;
+#X text 93 370 sending message 2 to the radio;
+#X text 14 420 The load bang makes sure the patch opens to preset 2
+, f 16;
+#X text 6 193 These are sending values to be output;
+#X text 330 141 These represent what is being received by the output
+;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 7 0 6 0;
+#X connect 8 0 7 1;
+#X connect 9 0 18 0;
+#X connect 13 0 17 0;
+#X connect 17 0 14 0;
+#X connect 17 1 15 0;
+#X connect 17 2 16 0;
+#X connect 18 0 10 0;
+#X connect 18 1 11 0;
+#X connect 18 2 12 0;
+#X connect 19 0 21 0;
+#X connect 21 0 13 0;

@@ -1,0 +1,57 @@
+#N canvas 93 269 1513 667 24;
+#X obj 134 111 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 174 111 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 142 137 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 182 137 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 222 137 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 262 137 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 230 113 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 39 511 sampler;
+#X text 521 40 This uses the "graph on parent" (GOP) technique \, where
+any graphical controller objects you put in the red square show up
+in the parent patch where you use this abstraction. To activate GOP
+\, right click on blank space and choose properties. There's a checkbox
+for GOP \, and you can set the size and offset of the red box using
+the number fields there.;
+#X obj 320 194 r time-index;
+#X obj 331 266 select 0 1 2 3;
+#X obj 172 321 spigot;
+#X obj 212 361 spigot;
+#X obj 252 401 spigot;
+#X obj 292 441 spigot;
+#X obj 320 227 % 4;
+#X text 562 279 <<< here \, this abstraction receives a "time-index"
+value that is spit out by the [timebase] abstraction described in the
+Farnell book. It's basically just a number that starts at 0 when [timebase]
+is turned on \, and starts counting upwards. We're wrapping at 4 here
+using the "modulo" object so that the input cycles like this: 0 \,
+1 \, 2 \, 3 \, 0 \, 1 \, 2 \, etc. Those are essentially our "beats".
+Add more so that you can make more complicated rhythms. For the beats
+where the toggles have been turned on \, a bang will get through the
+spigot and trigger a sample playback on that beat.;
+#X text 43 548 See inside [sampler] for more comments;
+#X connect 0 0 7 1;
+#X connect 1 0 7 2;
+#X connect 2 0 11 1;
+#X connect 3 0 12 1;
+#X connect 4 0 13 1;
+#X connect 5 0 14 1;
+#X connect 6 0 7 0;
+#X connect 9 0 15 0;
+#X connect 10 0 11 0;
+#X connect 10 1 12 0;
+#X connect 10 2 13 0;
+#X connect 10 3 14 0;
+#X connect 11 0 7 2;
+#X connect 12 0 7 2;
+#X connect 13 0 7 2;
+#X connect 14 0 7 2;
+#X connect 15 0 10 0;
+#X coords 0 -1 1 1 400 60 2 100 100;

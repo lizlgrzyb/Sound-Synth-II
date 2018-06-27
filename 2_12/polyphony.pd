@@ -1,0 +1,13 @@
+#N canvas 521 93 704 538 10;
+#X obj 210 107 poly 4;
+#X obj 210 165 pack 0 0 0;
+#X obj 210 186 print;
+#X obj 206 66 notein 1;
+#X text 253 186 spits out voice id \, note \, and velocity;
+#X text 254 207 Voice id cycles through 1 2 3 and 4;
+#X connect 0 0 1 0;
+#X connect 0 1 1 1;
+#X connect 0 2 1 2;
+#X connect 1 0 2 0;
+#X connect 3 0 0 0;
+#X connect 3 1 0 1;

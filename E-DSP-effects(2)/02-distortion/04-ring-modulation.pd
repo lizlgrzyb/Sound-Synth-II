@@ -1,0 +1,24 @@
+#N canvas 553 255 574 541 10;
+#X obj 66 355 output~;
+#X floatatom 199 106 10 0 10000 1 Hz - -, f 10;
+#X msg 66 33 open ../../audio/voice.wav \, start;
+#X obj 66 84 readsf~;
+#X msg 76 52 stop;
+#X obj 199 137 osc~;
+#X obj 66 189 *~;
+#X obj 237 299 spectrum~ 4096 4;
+#X text 318 57 When you modulate the amplitude of a signal directly
+with a sine wave \, you create "sidebands" above and below each partial
+in its spectrum. The modulation frequency controls how much higher
+and lower the sidebands appear relative to the original partial. Just
+as importantly: the original partial itself disappears in the process.
+This is not the case for amplitude modulation., f 29;
+#X connect 1 0 5 0;
+#X connect 2 0 3 0;
+#X connect 3 0 6 0;
+#X connect 3 1 2 0;
+#X connect 4 0 3 0;
+#X connect 5 0 6 1;
+#X connect 6 0 0 0;
+#X connect 6 0 0 1;
+#X connect 6 0 7 0;

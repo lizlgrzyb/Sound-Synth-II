@@ -1,0 +1,121 @@
+#N canvas 565 85 665 363 10;
+#X declare -path ../../lib;
+#X declare -path ./lib;
+#X declare -path ../../lib/list-abs;
+#N canvas 309 105 840 682 additive-synth-guts 0;
+#X obj 242 549 tgl 15 0 fake-midi-kbd-active empty fake-midi-kbd 17
+7 0 10 -262144 -1 -1 0 1;
+#X obj 152 489 output~;
+#X obj 435 418 hsl 180 15 0 1000 0 0 filtEnv-decay-time filtEnv-decay-time-set
+filtEnv-decay-time 8 8 0 10 -262144 -1 -1 1790 1;
+#X floatatom 632 418 5 0 0 1 ms - -, f 5;
+#X obj 435 398 hsl 180 15 0 500 0 0 filtEnv-attack-time filtEnv-attack-time-set
+filtEnv-attack-time 8 8 0 10 -262144 -1 -1 179 1;
+#X floatatom 632 398 5 0 0 1 ms - -, f 5;
+#X obj 435 438 hsl 180 15 0 100 0 0 filtEnv-sustain-level filtEnv-sustain-level-set
+filtEnv-sustain-level 8 8 0 10 -262144 -1 -1 3580 1;
+#X floatatom 632 438 5 0 0 1 % - -, f 5;
+#X obj 435 458 hsl 180 15 0 1000 0 0 filtEnv-release-time filtEnv-release-time-set
+filtEnv-release-time 8 8 0 10 -262144 -1 -1 3580 1;
+#X floatatom 632 458 5 0 0 1 ms - -, f 5;
+#X obj 315 308 r master-volume-set;
+#X obj 242 519 hradio 15 1 0 4 preset preset-set presets 0 -8 0 10
+-262144 -1 -1 1;
+#N canvas 618 58 1062 376 presets 0;
+#X obj 71 56 select 0 1 2 3, f 72;
+#X obj 71 35 r preset;
+#X msg 291 147 \; ampEnv-attack-time-set 50 \; ampEnv-decay-time-set
+200 \; ampEnv-sustain-level-set 30 \; ampEnv-release-time-set 750 \;
+\; filtEnv-attack-time-set 5 \; filtEnv-decay-time-set 100 \; filtEnv-sustain-level-set
+20 \; filtEnv-release-time-set 200 \;;
+#X msg 691 147 \; ampEnv-attack-time-set 250 \; ampEnv-decay-time-set
+750 \; ampEnv-sustain-level-set 20 \; ampEnv-release-time-set 1000
+\; \; filtEnv-attack-time-set 5 \; filtEnv-decay-time-set 100 \; filtEnv-sustain-level-set
+20 \; filtEnv-release-time-set 200 \;;
+#X msg 491 147 \; ampEnv-attack-time-set 10 \; ampEnv-decay-time-set
+50 \; ampEnv-sustain-level-set 35 \; ampEnv-release-time-set 50 \;
+\; filtEnv-attack-time-set 5 \; filtEnv-decay-time-set 575 \; filtEnv-sustain-level-set
+10 \; filtEnv-release-time-set 200 \;;
+#X msg 71 147 \; ampEnv-attack-time-set 5 \; ampEnv-decay-time-set
+100 \; ampEnv-sustain-level-set 0 \; ampEnv-release-time-set 200 \;
+\; filtEnv-attack-time-set 5 \; filtEnv-decay-time-set 100 \; filtEnv-sustain-level-set
+0 \; filtEnv-release-time-set 200 \;;
+#X connect 0 0 5 0;
+#X connect 0 1 2 0;
+#X connect 0 2 4 0;
+#X connect 0 3 3 0;
+#X connect 1 0 0 0;
+#X restore 369 328 pd presets;
+#X floatatom 542 498 5 0 0 1 vib-speed vib-speed-set vib-speed, f
+5;
+#X floatatom 542 518 5 0 0 1 vib-depth vib-depth-set vib-depth, f
+5;
+#X floatatom 542 538 5 0 0 1 portamento portamento-set portamento,
+f 5;
+#N canvas 113 428 547 333 MIDI-input 0;
+#X obj 83 217 outlet;
+#X obj 263 217 outlet;
+#X obj 233 86 fake-midi-keyboard;
+#X obj 233 46 r fake-midi-kbd-active;
+#X obj 53 86 keyboard-sustain;
+#X connect 2 0 0 0;
+#X connect 2 1 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 0 0;
+#X connect 4 1 1 0;
+#X restore 49 26 pd MIDI-input;
+#X obj 53 326 catch~ sum-bus;
+#X obj 49 99 pack f f f;
+#X msg 49 120 \; synth-note-\$1 \$2 \$3 \;;
+#X floatatom 542 558 5 0 127 1 resonant-freq resonant-freq-set resonant-freq
+, f 5;
+#X obj 155 418 hsl 180 15 0 1000 0 0 ampEnv-decay-time ampEnv-decay-time-set
+ampEnv-decay-time 8 8 0 10 -262144 -1 -1 3580 1;
+#X floatatom 352 418 5 0 0 1 ms - -, f 5;
+#X obj 155 398 hsl 180 15 0 500 0 0 ampEnv-attack-time ampEnv-attack-time-set
+ampEnv-attack-time 8 8 0 10 -262144 -1 -1 1790 1;
+#X floatatom 352 398 5 0 0 1 ms - -, f 5;
+#X obj 155 438 hsl 180 15 0 100 0 0 ampEnv-sustain-level ampEnv-sustain-level-set
+ampEnv-sustain-level 8 8 0 10 -262144 -1 -1 5370 1;
+#X floatatom 352 438 5 0 0 1 % - -, f 5;
+#X obj 155 458 hsl 180 15 0 1000 0 0 ampEnv-release-time ampEnv-release-time-set
+ampEnv-release-time 8 8 0 10 -262144 -1 -1 4525 1;
+#X floatatom 352 458 5 0 0 1 ms - -, f 5;
+#N canvas 557 268 758 285 init 0;
+#X text 292 67 For the oversampled sawtooth-based waveform in all classicSubSynth
+voices. See J04.corners.pd for background on how to affect the waveform
+shape.;
+#X obj 67 157 declare -path ../../lib;
+#X obj 67 36 loadbang;
+#X obj 67 197 declare -path ./lib;
+#X msg 67 57 \; osc-params 0.5 -0.5 0.5 0.5 1 0.5 \; preset-set 3 \;
+vib-speed-set 6 \; vib-depth-set 0.25 \; portamento-set 100 \; resonant-freq-set
+100 \; master-volume-set 90 \;;
+#X obj 67 177 declare -path ../../lib/list-abs;
+#X connect 2 0 4 0;
+#X restore 252 77 pd init;
+#X obj 49 78 poly 10 0;
+#X obj 227 233 clone -s 1 classicSubSynth 10;
+#X floatatom 382 518 5 0 0 1 note - -, f 5;
+#X floatatom 382 538 5 0 0 1 velocity - -, f 5;
+#X connect 2 0 3 0;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 8 0 9 0;
+#X connect 10 0 1 2;
+#X connect 16 0 30 0;
+#X connect 16 0 32 0;
+#X connect 16 1 30 1;
+#X connect 16 1 33 0;
+#X connect 17 0 1 0;
+#X connect 17 0 1 1;
+#X connect 18 0 19 0;
+#X connect 21 0 22 0;
+#X connect 23 0 24 0;
+#X connect 25 0 26 0;
+#X connect 27 0 28 0;
+#X connect 30 0 18 0;
+#X connect 30 1 18 1;
+#X connect 30 2 18 2;
+#X coords 0 -1 1 1 560 220 1 140 365;
+#X restore 53 58 pd additive-synth-guts;

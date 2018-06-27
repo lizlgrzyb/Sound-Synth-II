@@ -1,0 +1,78 @@
+#N canvas 228 175 859 604 10;
+#X obj 603 80 table \$0-sample;
+#X obj 501 151 soundfiler;
+#X obj 501 99 f \$0;
+#X msg 501 122 read -resize ../../audio/piano-36-short.wav \$1-sample
+;
+#X obj 586 171 unpack f f f f s;
+#X obj 64 471 output~;
+#X obj 501 79 loadbang;
+#X obj 501 322 s num-samples;
+#X obj 541 248 /;
+#X obj 481 99 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 541 279 s sample-duration;
+#X obj 64 361 line~;
+#X obj 64 207 pack f f;
+#X obj 198 31 r num-samples;
+#X obj 107 124 f;
+#X obj 85 89 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 183 183 f;
+#X obj 183 204 /;
+#X obj 254 226 / 12;
+#X msg 224 205 2;
+#X obj 224 226 pow;
+#X obj 224 247 *;
+#X obj 183 275 * 1000;
+#X obj 607 205 s samplerate;
+#X obj 254 247 r samplerate;
+#X obj 233 144 t b b f;
+#X obj 107 145 t f b;
+#X obj 233 123 f;
+#X floatatom 256 94 5 0 0 1 semitones - -, f 5;
+#X obj 64 412 tabread4~ \$0-sample;
+#X msg 64 321 1 \, \$1 \$2;
+#X obj 122 96 - 2;
+#X text 193 454 Interpolated sample playback eliminates distortion
+that happens at slower sample playback speeds.;
+#X text 135 322 If the interpolating [tabread4~] object is used \,
+you shouldn't read the first or last sample from the array (sample
+0 or sample N-1). So \, we change the message to [line~] so that it
+starts at sample 1 instead \, and the target sample to ramp towards
+is set to N-2 up above., f 46;
+#X connect 1 0 7 0;
+#X connect 1 0 8 0;
+#X connect 1 1 4 0;
+#X connect 2 0 3 0;
+#X connect 3 0 1 0;
+#X connect 4 0 8 1;
+#X connect 4 0 23 0;
+#X connect 6 0 2 0;
+#X connect 8 0 10 0;
+#X connect 9 0 2 0;
+#X connect 11 0 29 0;
+#X connect 12 0 30 0;
+#X connect 13 0 16 1;
+#X connect 13 0 31 0;
+#X connect 14 0 26 0;
+#X connect 15 0 14 0;
+#X connect 16 0 17 0;
+#X connect 17 0 22 0;
+#X connect 18 0 20 1;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 17 1;
+#X connect 22 0 12 1;
+#X connect 24 0 21 1;
+#X connect 25 0 16 0;
+#X connect 25 1 19 0;
+#X connect 25 2 18 0;
+#X connect 26 0 12 0;
+#X connect 26 1 27 0;
+#X connect 27 0 25 0;
+#X connect 28 0 27 1;
+#X connect 29 0 5 0;
+#X connect 29 0 5 1;
+#X connect 30 0 11 0;
+#X connect 31 0 14 1;

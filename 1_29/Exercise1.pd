@@ -1,0 +1,34 @@
+#N canvas 168 63 706 661 10;
+#X floatatom 162 36 5 0 0 0 - - send, f 5;
+#X obj 94 123 hsl 128 15 0 127 0 0 empty send empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 245 124 hsl 128 15 127 0 0 0 empty send empty -2 -8 0 10 -203904
+-1 -1 12700 1;
+#X obj 97 165 vradio 8 1 0 50 empty send empty 0 -8 0 10 -261234 -1
+-1 -17;
+#X obj 120 165 vradio 8 1 0 40 empty send empty 0 -8 0 10 -261682 -1
+-1 -17;
+#X obj 146 166 vradio 8 1 0 30 empty send empty 0 -8 0 10 -262130 -1
+-1 -17;
+#X obj 174 166 vradio 8 1 0 20 empty send empty 0 -8 0 10 -204786 -1
+-1 -17;
+#X obj 200 166 vradio 8 1 0 15 empty send empty 0 -8 0 10 -204800 -1
+-1 -17;
+#X obj 228 166 vradio 8 1 0 7 empty send empty 0 -8 0 10 -232576 -1
+-1 -17;
+#X obj 249 166 vradio 8 1 0 50 empty send empty 0 -8 0 10 -261234 -1
+-1 -17;
+#X obj 228 245 vradio 8 1 0 40 empty send empty 0 -8 0 10 -261682 -1
+-1 -17;
+#X obj 202 324 vradio 8 1 0 30 empty send empty 0 -8 0 10 -262130 -1
+-1 -17;
+#X obj 179 404 vradio 8 1 0 20 empty send empty 0 -8 0 10 -204786 -1
+-1 -17;
+#X obj 149 444 vradio 8 1 0 15 empty send empty 0 -8 0 10 -204800 -1
+-1 -17;
+#X obj 121 508 vradio 8 1 0 7 empty send empty 0 -8 0 10 -232576 -1
+-1 -17;
+#X obj 273 320 hradio 15 1 0 8 empty empty empty 0 -8 0 10 -262144
+-1 -1 -17;
+#X obj 287 220 r send;
+#X connect 16 0 15 0;

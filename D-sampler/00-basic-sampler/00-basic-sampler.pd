@@ -1,0 +1,66 @@
+#N canvas 161 52 869 664 10;
+#X obj 321 322 table \$0-sample;
+#X obj 37 311 soundfiler;
+#X floatatom 37 612 10 0 0 0 - - -, f 10;
+#X obj 37 37 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 37 57 f \$0;
+#X obj 77 117 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 77 137 f \$0;
+#X msg 117 270 read -resize \$1 \$2-sample;
+#X obj 117 247 pack s \$0;
+#X obj 117 197 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 117 217 openpanel;
+#X text 115 611 << reports how many samples were loaded to the specified
+array, f 33;
+#X obj 122 351 unpack f f f f s;
+#X symbolatom 242 402 10 0 0 3 endianness - -, f 10;
+#X floatatom 122 562 10 0 0 3 samplerate - -, f 10;
+#X floatatom 152 522 10 0 0 3 header-size - -, f 10;
+#X floatatom 182 482 10 0 0 3 num-channels - -, f 10;
+#X floatatom 212 442 10 0 0 3 bytes-per-sample - -, f 10;
+#X text 192 210 You can use [openpanel] to choose a .wav file from
+your OS's file open dialog. Here \, we need to pack the file name symbol
+that comes out along with the \$0 value for this patch in order to
+refer to the desination array properly.;
+#X text 128 114 If you throw in the "-resize" option \, [soundfiler]
+will automatically make the destination array big enough to hold the
+full sample.;
+#X text 86 11 The "read" message to [soundfiler] lets you specify a
+.wav file you want to load \, and the array you want to load it to.
+[soundfiler] will only load as much of the sample as will fit in the
+desination array \, so be aware of your array's size.;
+#X obj 476 371 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 476 431 tabplay~ \$0-sample;
+#X obj 476 474 output~;
+#X text 472 316 Once the sample is loaded to an array \, you can use
+several objects to play it back. [tabplay~] is the easiest \, but least
+flexible:;
+#X msg 521 393 0 22050;
+#X msg 37 80 read record.wav \$1-sample;
+#X msg 77 160 read -resize record.wav \$1-sample;
+#X text 291 343 see the sample here^;
+#X connect 1 0 2 0;
+#X connect 1 1 12 0;
+#X connect 3 0 4 0;
+#X connect 4 0 26 0;
+#X connect 5 0 6 0;
+#X connect 6 0 27 0;
+#X connect 7 0 1 0;
+#X connect 8 0 7 0;
+#X connect 9 0 10 0;
+#X connect 10 0 8 0;
+#X connect 12 0 14 0;
+#X connect 12 1 15 0;
+#X connect 12 2 16 0;
+#X connect 12 3 17 0;
+#X connect 12 4 13 0;
+#X connect 21 0 22 0;
+#X connect 22 0 23 0;
+#X connect 22 0 23 1;
+#X connect 25 0 22 0;
+#X connect 26 0 1 0;
+#X connect 27 0 1 0;

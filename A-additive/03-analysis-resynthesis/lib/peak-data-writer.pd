@@ -1,0 +1,45 @@
+#N canvas 615 108 774 528 10;
+#X obj 249 168 f;
+#X obj 279 169 + 1;
+#X msg 269 144 0;
+#X obj 150 257 tabwrite peak-\$1-real;
+#X obj 190 237 tabwrite peak-\$1-imag;
+#X obj 110 277 tabwrite peak-\$1-magnitude;
+#X obj 432 358 r clear-all-peak-tables;
+#X obj 432 379 f \$1;
+#X obj 70 75 t l b;
+#X obj 432 239 pack f \$1;
+#X obj 432 218 r resize-all-peak-tables;
+#X obj 70 297 tabwrite peak-\$1-frequency;
+#X obj 70 156 unpack f f f f;
+#X msg 432 400 \; peak-\$1-frequency const 0 \; peak-\$1-magnitude
+const 0 \; peak-\$1-real const 0 \; peak-\$1-imag const 0 \;;
+#X text 519 137 need a table saving function \;;
+#X obj 527 43 table peak-\$1-imag;
+#X obj 527 63 table peak-\$1-real;
+#X obj 527 83 table peak-\$1-magnitude;
+#X obj 527 103 table peak-\$1-frequency;
+#X msg 432 260 \; peak-\$2-frequency resize \$1 \; peak-\$2-magnitude
+resize \$1 \; peak-\$2-real resize \$1 \; peak-\$2-imag resize \$1
+\;;
+#X obj 70 54 r peak-\$1-data;
+#X obj 269 124 r clear-all-peak-tables;
+#X connect 0 0 1 0;
+#X connect 0 0 4 1;
+#X connect 0 0 3 1;
+#X connect 0 0 5 1;
+#X connect 0 0 11 1;
+#X connect 1 0 0 1;
+#X connect 2 0 0 1;
+#X connect 6 0 7 0;
+#X connect 7 0 13 0;
+#X connect 8 0 12 0;
+#X connect 8 1 0 0;
+#X connect 9 0 19 0;
+#X connect 10 0 9 0;
+#X connect 12 0 11 0;
+#X connect 12 1 5 0;
+#X connect 12 2 3 0;
+#X connect 12 3 4 0;
+#X connect 20 0 8 0;
+#X connect 21 0 2 0;

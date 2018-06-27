@@ -1,0 +1,7 @@
+#N canvas 153 97 450 300 10;
+#X text 116 66 to use arguments in abstractions:;
+#X obj 148 135 inlet;
+#X obj 148 179 \$1;
+#X text 57 225 then when you type the abstraction name \, include your
+number after the name;
+#X connect 1 0 2 0;

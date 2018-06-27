@@ -1,0 +1,154 @@
+#N canvas 0 30 1024 670 10;
+#X obj 118 206 dac~;
+#X text 52 84 dac~ has a left and right...;
+#X obj 81 125 osc~ 440;
+#X obj 162 125 osc~ 540;
+#X obj 370 191 dac~;
+#X obj 368 121 osc~ 440;
+#X obj 82 167 *~ 0.5;
+#X obj 162 168 *~ 0.5;
+#X obj 369 153 *~ 0.5;
+#X text 420 152 sending 0.5 amplitude of 440 to both l and r, f 27
+;
+#X text 47 15 1;
+#X text 295 17 2;
+#X text 34 374 3;
+#X obj 778 422 osc~ 440;
+#X obj 778 453 *~ 0.5;
+#X obj 781 598 *~;
+#X obj 892 596 *~;
+#X text 705 599 Left signal;
+#X text 919 600 Right signal;
+#X floatatom 990 489 5 0 0 0 - - -, f 5;
+#X floatatom 873 479 5 0 0 0 - - -, f 5;
+#X obj 70 463 expr 1 -$f1;
+#X text 764 297 4;
+#X text 65 484 This is is an expression saying that whatever comes
+in ($f1) will be subtracted from 1, f 47;
+#X text 41 631 In this case \, it's useful for us to set the input
+range from 0 to 1 since this is the number that will be multiplied
+with 0.5 for the total volume out.;
+#X floatatom 220 522 5 0 1 0 0_to_1 - -, f 5;
+#X floatatom 223 603 5 0 0 0 - - -, f 5;
+#X floatatom 100 606 5 0 0 0 - - -, f 5;
+#X obj 447 521 hsl 128 15 0 1 0 0 empty empty range_0_to_1 -2 -8 0
+10 -262144 -1 -1 0 1;
+#X floatatom 486 596 5 0 0 0 - - -, f 5;
+#X floatatom 363 599 5 0 0 0 - - -, f 5;
+#X obj 364 558 expr 1 -$f1;
+#X obj 832 633 dac~;
+#X obj 969 403 hsl 128 15 0 1 0 0 empty empty range_0_to_1 -2 -8 0
+10 -262144 -1 -1 6350 1;
+#X text 794 290 Then combining the expression with the *~ \, you can
+control the amplitude in the left and right of the dac~;
+#X text 867 509 number to be multiplied by 0.5, f 12;
+#X text 986 506 number to be multiplied by 0.5, f 16;
+#X text 1244 341 5;
+#X text 1302 343 This could be turned into a subpatch..;
+#N canvas 0 45 1024 656 panner 0;
+#X obj 99 84 *~ 0.5;
+#X obj 99 125 *~;
+#X obj 231 191 *~;
+#X text 22 175 Left signal;
+#X text 262 190 Right signal;
+#X floatatom 371 99 5 0 0 0 - - -, f 5;
+#X floatatom 208 113 5 0 0 0 - - -, f 5;
+#X obj 171 83 expr 1 -$f1;
+#X text 205 133 number to be multiplied by 0.5, f 12;
+#X text 363 133 number to be multiplied by 0.5, f 16;
+#X text 91 34 audio in;
+#X obj 100 213 outlet~;
+#X text 101 231 Left channel out;
+#X text 231 238 Right channel out;
+#X obj 231 221 outlet~;
+#X obj 322 53 inlet;
+#X obj 97 52 inlet~;
+#X text 318 35 slider in;
+#X text 58 461 6;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 1 0 11 0;
+#X connect 2 0 14 0;
+#X connect 7 0 1 1;
+#X connect 7 0 6 0;
+#X connect 15 0 7 0;
+#X connect 15 0 2 1;
+#X connect 15 0 5 0;
+#X connect 16 0 0 0;
+#X restore 1339 434 pd panner;
+#X obj 1403 387 hsl 128 15 0 1 0 0 empty empty range_0_to_1 -2 -8 0
+10 -262144 -1 -1 0 1;
+#X obj 1299 384 osc~ 440;
+#X obj 1348 476 dac~;
+#X text 1301 456 l out;
+#X text 1399 460 r out;
+#X text 1404 419 slider in;
+#X text 1267 421 signal in;
+#X text 1266 518 ...you could also make it an abstraction to make it
+easier to implement multiple times in different projects.;
+#X text 102 197 L;
+#X text 154 197 R;
+#X text 46 227 You can hear 440 in the left speaker \, and 540 in the
+right speaker, f 31;
+#X text 318 211 ..but it's possible to control how much of one signal
+is being sent to the left \, and how much of one signal is sent to
+the right, f 39;
+#X text 68 375 We can control the panning of the signal by using expr.
+To pan left \, we want the audio going to the left outlet to be louder
+than the audio going to the right output. Vise versa for panning right.
+, f 39;
+#X msg 934 372 0.5;
+#X msg 1375 360 0.5;
+#X obj 101 565 expr 1 -$f1;
+#X text 314 78 Usually \, we've been sending the same amount of signal
+to both l and r..., f 32;
+#X obj 50 565 -;
+#X floatatom 47 597 5 0 0 0 - - -, f 5;
+#X msg 27 532 1;
+#X obj 97 514 t b f;
+#X obj 802 546 line~;
+#X obj 944 551 line~;
+#X msg 803 518 \$1 40;
+#X msg 945 517 \$1 40;
+#X obj 868 451 expr 1 -$f1;
+#X obj 1095 465 panner~;
+#X obj 1078 606 line~;
+#X msg 1079 569 \$1 40;
+#X text 1116 605 line makes it smoother;
+#X text 1123 562 \$1 is a placeholder for the value in \, and 40 is
+the ramp time, f 32;
+#X obj 924 342 loadbang;
+#X connect 2 0 6 0;
+#X connect 3 0 7 0;
+#X connect 5 0 8 0;
+#X connect 13 0 14 0;
+#X connect 14 0 15 0;
+#X connect 14 0 16 0;
+#X connect 15 0 32 0;
+#X connect 16 0 32 1;
+#X connect 25 0 26 0;
+#X connect 25 0 55 0;
+#X connect 25 0 60 0;
+#X connect 28 0 31 0;
+#X connect 28 0 29 0;
+#X connect 31 0 30 0;
+#X connect 33 0 19 0;
+#X connect 33 0 64 0;
+#X connect 33 0 65 0;
+#X connect 40 0 39 1;
+#X connect 41 0 39 0;
+#X connect 53 0 33 0;
+#X connect 54 0 40 0;
+#X connect 55 0 27 0;
+#X connect 57 0 58 0;
+#X connect 59 0 57 0;
+#X connect 60 0 59 0;
+#X connect 60 1 57 1;
+#X connect 61 0 15 1;
+#X connect 62 0 16 1;
+#X connect 63 0 61 0;
+#X connect 64 0 62 0;
+#X connect 65 0 20 0;
+#X connect 65 0 63 0;
+#X connect 68 0 67 0;
+#X connect 71 0 53 0;

@@ -1,0 +1,82 @@
+#N canvas 269 120 1099 622 10;
+#X declare -path ./lib;
+#X obj 342 143 mtof;
+#X obj 342 26 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 372 107 5 0 0 0 - - -, f 5;
+#X obj 123 436 *~;
+#X obj 231 393 vline~;
+#X obj 604 433 hsl 128 15 1 45 0 0 decay decay-set decay -2 -8 0 12
+-262144 -1 -1 5484 1;
+#X text 505 73 This "ratchet" sound is a set of harmonically tuned
+band pass filters filtering white noise. It only sounds like a ratchet
+at higher frequencies and with a very low decay. The longer the decay
+\, the more pitched the sound becomes.;
+#X msg 369 175 0;
+#X msg 409 175 1;
+#X obj 342 199 spigot 1;
+#X obj 433 204 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 636 551 declare -path ./lib;
+#X obj 123 479 output~;
+#X obj 371 518 loadbang;
+#X obj 123 247 *~ 10;
+#X obj 342 46 random 24;
+#X obj 342 68 + 48;
+#X msg 231 372 1 3 \, 0 100 1400;
+#X text 463 194 When a note command goes through the spigot \, we temporarily
+close it so that no further commands can get through until the current
+one is finished sounding. This tone is hard-coded to last 1.5 seconds.
+;
+#X obj 779 316 metro 50;
+#X obj 779 337 s env-trig;
+#X obj 779 288 loadbang;
+#X obj 433 291 del 1500;
+#X obj 342 246 t b f b;
+#X text 473 342 Then send the current frequency to the [ratchet-abs]
+instances for tuning., f 35;
+#X text 508 286 First \, schedule the spigot to open again in 1.5 seconds
+, f 29;
+#X text 292 399 Last \, trigger the attack/release envelope message
+, f 21;
+#X text 880 271 Turn on a metro that fires a bang once every 50ms (or
+20 times a second). This is received in the [ratchet-abs] abstraction
+instances for triggering their amplitude envelopes \, which vary according
+to harmonic number, f 26;
+#X obj 604 473 hsl 128 15 10 500 1 0 filter-q filter-q-set filter-q
+-2 -8 0 12 -262144 -1 -1 6541 1;
+#X floatatom 751 473 5 0 0 1 Q filter-q -, f 5;
+#X floatatom 751 433 5 0 0 1 ms decay -, f 5;
+#X msg 371 539 \; pd dsp 1 \; decay-set 20 \; filter-q-set 75 \;;
+#X obj 123 139 ratchet-abs 6 0.9 1;
+#X obj 123 119 ratchet-abs 5 0.9 1;
+#X obj 123 99 ratchet-abs 4 0.9 1;
+#X obj 123 79 ratchet-abs 3 0.9 1;
+#X obj 123 59 ratchet-abs 2 0.9 1;
+#X obj 123 39 ratchet-abs 1 0.9 1;
+#X obj 123 226 catch~ sum-1;
+#X obj 412 339 s freq-1;
+#X connect 0 0 9 0;
+#X connect 1 0 15 0;
+#X connect 3 0 12 0;
+#X connect 3 0 12 1;
+#X connect 4 0 3 1;
+#X connect 7 0 9 1;
+#X connect 7 0 10 0;
+#X connect 8 0 9 1;
+#X connect 8 0 10 0;
+#X connect 9 0 23 0;
+#X connect 13 0 31 0;
+#X connect 14 0 3 0;
+#X connect 15 0 16 0;
+#X connect 16 0 2 0;
+#X connect 16 0 0 0;
+#X connect 17 0 4 0;
+#X connect 19 0 20 0;
+#X connect 21 0 19 0;
+#X connect 22 0 8 0;
+#X connect 23 0 17 0;
+#X connect 23 1 39 0;
+#X connect 23 2 7 0;
+#X connect 23 2 22 0;
+#X connect 38 0 14 0;

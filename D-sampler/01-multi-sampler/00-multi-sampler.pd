@@ -1,0 +1,49 @@
+#N canvas 830 170 868 568 10;
+#X declare -path ./lib;
+#X declare -path ../../../lib;
+#X obj 250 434 declare -path ./lib;
+#X obj 250 454 declare -path ../../../lib;
+#X obj 268 200 wavLoader multiSamples 441000;
+#X floatatom 268 241 5 0 0 3 loaded-files - -, f 5;
+#X text 23 44 If you want to load a whole set of individual samples
+\, things become more complicated. You need a separate array for each
+sample you want loaded \, and you need to send a "read" message to
+[soundfiler] for every sample as well. I made the [wavLoader] abstraction
+for our class to make things easier. If you give it the name of a text
+file containing the path and filename for every sample you want loaded
+\, it will make an array for each sample automatically \, and load
+all your files., f 32;
+#X msg 298 163 symbol ../audio/filenames.txt;
+#X obj 268 98 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 268 118 openpanel;
+#X obj 178 300 text get wavLoader-multiSamples-table-names;
+#X obj 178 275 random;
+#X symbolatom 248 331 20 0 0 0 - - -, f 20;
+#X msg 141 365 set \$1;
+#X obj 108 275 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 108 296 t b b;
+#X obj 92 398 tabplay~;
+#X obj 92 439 output~;
+#X text 459 201 << check the help file for info on creation arguments
+, f 18;
+#X text 413 349 [wavLoader] stores the names of its loaded samples
+(with the .wav stripped off the end). You can look up sample array
+names using a [text get]. Here \, after sending a text file name to
+load samples \, you can click the bang button at left to choose a random
+sample from the set and play it back.;
+#X connect 2 0 3 0;
+#X connect 2 0 9 1;
+#X connect 5 0 2 0;
+#X connect 6 0 7 0;
+#X connect 7 0 2 0;
+#X connect 8 0 10 0;
+#X connect 8 0 11 0;
+#X connect 9 0 8 0;
+#X connect 11 0 14 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 13 1 9 0;
+#X connect 14 0 15 0;
+#X connect 14 0 15 1;

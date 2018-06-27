@@ -1,0 +1,87 @@
+#N canvas 85 23 1195 701 10;
+#X declare -path ./lib;
+#X declare -path ../../../lib;
+#X obj 144 515 declare -path ./lib;
+#X obj 144 535 declare -path ../../../lib;
+#X obj 377 353 wavLoader multiSamples 441000;
+#X floatatom 377 374 5 0 0 3 loaded-files - -, f 5;
+#X msg 377 316 symbol ../audio/filenames.txt;
+#X obj 377 291 loadbang;
+#X obj 42 71 notein;
+#X obj 141 51 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 141 71 fake-midi-keyboard;
+#X obj 132 182 hradio 15 1 0 14 empty empty sample-ID 0 -8 0 10 -262144
+-1 -1 1;
+#X obj 42 182 pack f f f f;
+#X obj 426 46 loadbang;
+#X msg 426 67 60;
+#X floatatom 426 88 5 0 0 0 - - -, f 5;
+#X obj 426 108 s MIDI-unity-pitch;
+#X obj 47 396 output~;
+#X obj 576 164 sampler-voice-wireless 1;
+#X obj 47 360 catch~ sum-bus;
+#X msg 42 293 \; sampler-note-\$1 \$2 \$3 \$4 \;;
+#X text 61 205 Now we send this list to a broadcast message \, using
+the voice ID to construct the send/receive name to talk to abstraction
+instance 1 \, 2 \, 3 \, or 4 Look inside the [sampler-voice-wireless]
+abstraction instance to see how its creation argument is used to set
+the name of a receive object that replaces the inlet.;
+#X obj 515 481 hsl 180 15 0 250 0 0 decay-time decay-time-set decay-time
+8 8 0 10 -262144 -1 -1 0 1;
+#X obj 515 461 hsl 180 15 0 500 0 0 attack-time attack-time-set attack-time
+8 8 0 10 -262144 -1 -1 0 1;
+#X obj 515 501 hsl 180 15 0 100 0 0 sustain-level sustain-level-set
+sustain-level 8 8 0 10 -262144 -1 -1 0 1;
+#X obj 515 521 hsl 180 15 0 1000 0 0 release-time release-time-set
+release-time 8 8 0 10 -262144 -1 -1 0 1;
+#N canvas 4 23 856 299 presets 0;
+#X obj 71 56 select 0 1 2 3, f 72;
+#X msg 71 147 \; attack-time-set 5 \; decay-time-set 100 \; sustain-level-set
+20 \; release-time-set 200 \;;
+#X msg 251 147 \; attack-time-set 50 \; decay-time-set 200 \; sustain-level-set
+30 \; release-time-set 750 \;;
+#X msg 431 147 \; attack-time-set 10 \; decay-time-set 5 \; sustain-level-set
+10 \; release-time-set 50 \;;
+#X msg 611 147 \; attack-time-set 250 \; decay-time-set 750 \; sustain-level-set
+20 \; release-time-set 1000 \;;
+#X obj 71 35 inlet;
+#X connect 0 0 1 0;
+#X connect 0 1 2 0;
+#X connect 0 2 3 0;
+#X connect 0 3 4 0;
+#X connect 5 0 0 0;
+#X restore 412 521 pd presets;
+#X obj 412 502 hradio 15 1 0 4 empty empty empty 0 -8 0 10 -262144
+-1 -1 0;
+#X text 407 454 Some global ADSR controls with presets, f 14;
+#X obj 42 151 poly 8 0;
+#X obj 576 224 sampler-voice-wireless 4;
+#X obj 576 184 sampler-voice-wireless 2;
+#X obj 576 204 sampler-voice-wireless 3;
+#X obj 576 246 sampler-voice-wireless 5;
+#X obj 576 266 sampler-voice-wireless 6;
+#X obj 576 286 sampler-voice-wireless 7;
+#X obj 576 306 sampler-voice-wireless 8;
+#X text 754 130 you can either do a ton of abstractions \, or you can
+use clone!, f 25;
+#X obj 793 203 clone sampler-voice-wireless 32;
+#X connect 2 0 3 0;
+#X connect 4 0 2 0;
+#X connect 5 0 4 0;
+#X connect 6 0 27 0;
+#X connect 6 1 27 1;
+#X connect 7 0 8 0;
+#X connect 8 0 27 0;
+#X connect 8 1 27 1;
+#X connect 9 0 10 3;
+#X connect 10 0 18 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 17 0 15 0;
+#X connect 17 0 15 1;
+#X connect 25 0 24 0;
+#X connect 27 0 10 0;
+#X connect 27 1 10 1;
+#X connect 27 2 10 2;

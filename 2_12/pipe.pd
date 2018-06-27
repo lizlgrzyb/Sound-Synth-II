@@ -1,0 +1,10 @@
+#N canvas 236 34 599 398 10;
+#X obj 226 128 r fungus;
+#X obj 226 167 pipe 1000;
+#X floatatom 226 188 5 0 0 0 - - -, f 5;
+#X floatatom 229 56 5 0 0 0 - - -, f 5;
+#X obj 229 84 s fungus;
+#X text 291 169 Delay for numbers;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 4 0;

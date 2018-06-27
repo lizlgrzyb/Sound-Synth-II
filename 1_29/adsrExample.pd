@@ -1,0 +1,39 @@
+#N canvas 216 147 807 535 10;
+#X obj 274 429 *~;
+#X obj 275 481 dac~;
+#X obj 326 388 line~;
+#X obj 274 257 osc~ 300;
+#X msg 327 299 0.7 10;
+#X msg 371 346 0 10;
+#X text 326 281 On (.7 is peak amp \, 10 is fade in in ms;
+#X text 348 321 On (0 is peak amp \, 10 is fade out in ms;
+#X obj 253 222 line, f 18;
+#X obj 325 451 dbtorms;
+#X msg 355 188 0 1000;
+#X obj 328 419 hsl 128 15 0 127 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 159 191 Pitch increase;
+#X text 402 187 Pitch decrease;
+#X obj 253 145 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 253 190 400 1000 125;
+#X obj 354 161 delay 500;
+#X obj 253 112 metro 1000;
+#X obj 253 83 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X connect 0 0 1 0;
+#X connect 0 0 1 1;
+#X connect 2 0 0 1;
+#X connect 3 0 0 0;
+#X connect 4 0 2 0;
+#X connect 5 0 2 0;
+#X connect 8 0 3 0;
+#X connect 9 0 0 1;
+#X connect 10 0 8 0;
+#X connect 11 0 9 0;
+#X connect 14 0 15 0;
+#X connect 14 0 16 0;
+#X connect 15 0 8 0;
+#X connect 16 0 10 0;
+#X connect 17 0 14 0;
+#X connect 18 0 17 0;

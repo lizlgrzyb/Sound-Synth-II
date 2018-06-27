@@ -1,0 +1,28 @@
+#N canvas 992 70 569 398 10;
+#X obj 40 249 *~ 0.5;
+#X obj 40 279 -~ 0.25;
+#X obj 40 309 cos~;
+#X obj 40 214 /~ 100;
+#X obj 40 37 inlet~;
+#X text 176 182 \$1: voice ID \; \$2: wavetable set name \; \$3: number
+of wavetables in this set \; \$4: wavetable ID within this set \;;
+#X obj 40 176 -~;
+#X obj 129 64 f \$4;
+#X obj 129 86 * 50;
+#X obj 40 137 clip~;
+#X obj 129 108 + 100;
+#X obj 129 42 r missive-\$2-\$1-lb4;
+#X obj 40 338 s~ missive-\$1-\$2-\$4-gain;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 12 0;
+#X connect 3 0 0 0;
+#X connect 4 0 9 0;
+#X connect 6 0 3 0;
+#X connect 7 0 8 0;
+#X connect 8 0 6 1;
+#X connect 8 0 9 1;
+#X connect 8 0 10 0;
+#X connect 9 0 6 0;
+#X connect 10 0 9 2;
+#X connect 11 0 7 0;

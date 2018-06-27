@@ -1,0 +1,38 @@
+#N canvas 249 30 1031 687 10;
+#X obj 200 535 dac~;
+#X obj 184 226 noise~;
+#X obj 292 398 hsl 128 15 0 100 0 0 empty empty dB -2 -8 0 10 -262144
+-1 -1 10700 1;
+#X obj 200 506 *~;
+#X obj 272 449 dbtorms;
+#X floatatom 273 423 5 0 0 0 - - -, f 5;
+#X floatatom 290 483 5 0 0 0 - - -, f 5;
+#X text 322 448 converts dB to rms;
+#X floatatom 370 311 5 0 0 0 q - -, f 5;
+#X obj 195 386 vcf~, f 7;
+#X obj 284 269 +~;
+#X floatatom 393 248 5 0 0 1 center_frequency - -, f 5;
+#X obj 278 316 mtof~;
+#X text 283 170 LFO;
+#X text 412 283 This is Bravado!;
+#X text 21 369 This is a voltage controlled band pass filter.;
+#X text 441 408 This is the volume control with conversion to dB scale.
+;
+#X obj 281 191 osc~ 6;
+#X obj 304 239 *~;
+#X floatatom 366 214 5 0 0 0 depth - -, f 5;
+#X floatatom 228 309 5 0 0 0 - - -, f 5;
+#X connect 1 0 9 0;
+#X connect 2 0 5 0;
+#X connect 3 0 0 0;
+#X connect 4 0 6 0;
+#X connect 4 0 3 1;
+#X connect 5 0 4 0;
+#X connect 8 0 9 2;
+#X connect 9 0 3 0;
+#X connect 10 0 12 0;
+#X connect 11 0 10 1;
+#X connect 12 0 9 1;
+#X connect 17 0 18 0;
+#X connect 18 0 10 0;
+#X connect 19 0 18 1;

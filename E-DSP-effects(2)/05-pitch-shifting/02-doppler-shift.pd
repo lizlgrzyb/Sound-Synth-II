@@ -1,0 +1,69 @@
+#N canvas 67 52 1301 710 16;
+#X declare -path ../../lib;
+#X obj 46 37 adc~ 1;
+#X obj 130 123 osc~ 777;
+#X obj 130 151 *~ 0.1;
+#X obj 46 65 *~;
+#X obj 94 65 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 130 195 *~;
+#X obj 178 195 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 377 165 phasor~ 1;
+#X obj 377 303 *~ 100;
+#X obj 377 331 +~ 1.5;
+#X obj 621 322 -~ 0.5;
+#X obj 621 350 *~ 0.5;
+#X obj 621 378 cos~;
+#X obj 377 445 *~;
+#X obj 760 350 *~ 100;
+#X obj 760 378 +~ 1.5;
+#X obj 1004 369 -~ 0.5;
+#X obj 1004 397 *~ 0.5;
+#X obj 1004 425 cos~;
+#X obj 760 472 *~;
+#X obj 377 524 +~;
+#X obj 760 278 wrap~;
+#X obj 760 247 +~ 0.5;
+#X text 648 523 Try adding in this 180 degree out of phase copy so
+that the sound remains more constant.;
+#X text 257 3 Now we can use a phasor~ rather than repeatedly triggering
+a line \, and have it simultaneously drive a cosine enveloper so we
+fade out at the reset points. The frequency of the phasor affects the
+slope of the ramp \, and therefore the pitch of the doppler shift.
+;
+#X obj 377 577 output~;
+#X obj 46 275 delwrite~ \$0-dopp-del 1000;
+#X obj 760 421 delread4~ \$0-dopp-del;
+#X obj 377 374 delread4~ \$0-dopp-del;
+#X obj 974 641 declare -path ../../lib;
+#X floatatom 377 125 5 0 0 0 - - -, f 5;
+#X connect 0 0 3 0;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X connect 3 0 26 0;
+#X connect 4 0 3 1;
+#X connect 5 0 26 0;
+#X connect 6 0 5 1;
+#X connect 7 0 8 0;
+#X connect 7 0 10 0;
+#X connect 7 0 22 0;
+#X connect 8 0 9 0;
+#X connect 9 0 28 0;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 1;
+#X connect 13 0 20 0;
+#X connect 14 0 15 0;
+#X connect 15 0 27 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 1;
+#X connect 20 0 25 0;
+#X connect 20 0 25 1;
+#X connect 21 0 14 0;
+#X connect 21 0 16 0;
+#X connect 22 0 21 0;
+#X connect 27 0 19 0;
+#X connect 28 0 13 0;
+#X connect 30 0 7 0;

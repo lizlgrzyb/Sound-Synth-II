@@ -1,0 +1,82 @@
+#N canvas 218 203 968 625 10;
+#X floatatom 521 197 10 0 0 0 - - -, f 10;
+#X floatatom 58 379 10 0 0 0 - - -, f 10;
+#X text 56 101 Using a Terminal window \, cd to the directory full
+of samples you want to load \, and type:;
+#X text 56 141 ls -d "$PWD"/*.wav > filenames.txt;
+#X text 56 171 This will create a text file called filenames.txt that
+contains the full path name of every file in the directory. You can
+feed [wavLoader] the path to filenames.txt and it will load all files
+listed.;
+#X obj 58 261 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 58 281 openpanel;
+#X msg 601 385 set \$1;
+#X obj 601 334 text get wavLoader-set1-table-names;
+#X obj 521 167 random;
+#X obj 566 145 text size wavLoader-set1-files;
+#X obj 521 97 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 521 117 t b b;
+#X symbolatom 621 358 30 0 0 0 - - -, f 30;
+#X text 83 343 \$1: symbolic ID for abstraction instance \; \$2: maxsize
+value for maximum sample size \;;
+#X obj 58 321 wavLoader set1 441000;
+#X obj 521 441 tabread~;
+#X msg 455 385 0 \, \$1 \$2;
+#X obj 455 406 line~;
+#X obj 521 522 output~;
+#X obj 592 466 loadbang;
+#X msg 592 487 90;
+#X obj 455 356 pack f f;
+#X obj 455 306 - 1;
+#X obj 521 222 t f f f;
+#X obj 455 276 t f f;
+#X obj 505 306 /;
+#X obj 505 327 * 1000;
+#X obj 455 255 tabread wavLoader-set1-file-lengths;
+#X obj 525 286 tabread wavLoader-set1-file-samplerates;
+#X text 56 21 [wavLoader] loads large sets of .wav files to dynamically
+created [table] objects named after the files loaded. It also stores
+the individual file lengths and samplerates internally for later reference.
+File names and the directories that contain them **CANNOT** contain
+spaces., f 118;
+#X text 56 405 Outlet reports the number of files listed in the text
+file (which should normally match the number of files loaded)., f
+31;
+#X text 595 109 Pick a random file in the set;
+#X text 680 184 Check its length and samplerate in order to create
+a line that moves from the beginning to the end of the file in the
+appropriate number of milliseconds for normal playback speed., f 29
+;
+#X text 664 384 Set the [tabread~] table to the symbolic name of the
+chosen sample., f 37;
+#X connect 0 0 24 0;
+#X connect 5 0 6 0;
+#X connect 6 0 15 0;
+#X connect 7 0 16 0;
+#X connect 8 0 7 0;
+#X connect 8 0 13 0;
+#X connect 9 0 0 0;
+#X connect 10 0 9 1;
+#X connect 11 0 12 0;
+#X connect 12 0 9 0;
+#X connect 12 1 10 0;
+#X connect 15 0 1 0;
+#X connect 16 0 19 0;
+#X connect 16 0 19 1;
+#X connect 17 0 18 0;
+#X connect 18 0 16 0;
+#X connect 20 0 21 0;
+#X connect 21 0 19 2;
+#X connect 22 0 17 0;
+#X connect 23 0 22 0;
+#X connect 24 0 28 0;
+#X connect 24 1 29 0;
+#X connect 24 2 8 0;
+#X connect 25 0 23 0;
+#X connect 25 1 26 0;
+#X connect 26 0 27 0;
+#X connect 27 0 22 1;
+#X connect 28 0 25 0;
+#X connect 29 0 26 1;

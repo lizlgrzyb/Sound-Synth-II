@@ -1,0 +1,62 @@
+#N canvas 361 198 724 551 10;
+#X declare -path ./lib;
+#X declare -path ../../../lib;
+#X obj 239 428 declare -path ./lib;
+#X obj 239 448 declare -path ../../../lib;
+#X obj 353 323 wavLoader multiSamples 441000;
+#X floatatom 353 364 5 0 0 3 loaded-files - -, f 5;
+#X msg 353 286 symbol ../audio/filenames.txt;
+#X obj 47 396 output~;
+#X obj 353 261 loadbang;
+#X obj 115 68 notein;
+#X obj 214 48 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 214 68 fake-midi-keyboard;
+#X obj 115 148 poly 4 0;
+#X obj 115 259 route 1 2 3 4;
+#X obj 205 179 hradio 15 1 0 14 empty empty sample-ID 0 -8 0 10 -262144
+-1 -1 13;
+#X obj 115 179 pack f f f f;
+#X text 140 210 Here \, we pack together the voice ID assigned by [poly]
+\, MIDI pitch \, MIDI velocity \, and the chosen sample ID number.
+;
+#X obj 175 336 sampler-voice;
+#X obj 165 356 sampler-voice;
+#X obj 185 316 sampler-voice;
+#X obj 195 296 sampler-voice;
+#X obj 426 46 loadbang;
+#X msg 426 67 60;
+#X floatatom 426 88 5 0 0 0 - - -, f 5;
+#X obj 426 108 s MIDI-unity-pitch;
+#X text 551 22 This is the MIDI pitch to be played to get sample playback
+at unity pitch/speed. Playing higher than this pitch causes upward
+transposition \, and lower than this pitch causes lower transpositions.
+It's received in [sampler-voice] when MIDI notes come in., f 20;
+#X connect 2 0 3 0;
+#X connect 4 0 2 0;
+#X connect 6 0 4 0;
+#X connect 7 0 10 0;
+#X connect 7 1 10 1;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 1 10 1;
+#X connect 10 0 13 0;
+#X connect 10 1 13 1;
+#X connect 10 2 13 2;
+#X connect 11 0 16 0;
+#X connect 11 1 15 0;
+#X connect 11 2 17 0;
+#X connect 11 3 18 0;
+#X connect 12 0 13 3;
+#X connect 13 0 11 0;
+#X connect 15 0 5 0;
+#X connect 15 0 5 1;
+#X connect 16 0 5 0;
+#X connect 16 0 5 1;
+#X connect 17 0 5 0;
+#X connect 17 0 5 1;
+#X connect 18 0 5 0;
+#X connect 18 0 5 1;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;

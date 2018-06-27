@@ -1,0 +1,52 @@
+#N canvas 325 224 916 492 10;
+#X obj 66 355 output~;
+#X obj 66 183 clip~ -0.1 0.1;
+#X obj 66 244 *~;
+#X floatatom 295 124 5 0 0 0 - - -, f 5;
+#X obj 295 144 + 100;
+#X obj 295 186 pack f 40;
+#X obj 295 207 line~;
+#X obj 295 165 dbtorms;
+#X text 338 123 << makeup gain;
+#X obj 133 104 t f f, f 15;
+#X obj 133 130 * -1;
+#X floatatom 133 64 5 0 100 0 - - -, f 5;
+#X obj 133 84 / 100;
+#X msg 66 18 open ../../audio/voice.wav \, start;
+#X obj 66 69 readsf~;
+#X msg 76 37 stop;
+#X obj 173 330 waveform-plotter;
+#X text 176 64 << clip point;
+#X text 476 58 Hard digital clipping just bashes any samples above
+or below an amplitude clip point to the clip point itself. Flattening
+out the tops and bottoms of waveforms like this adds all kinds of chaotic
+high frequency content.;
+#X obj 295 53 loadbang;
+#X msg 295 74 12;
+#X text 476 128 Two controls are necessary \, because if you're clipping
+the waveform off at a very low amplitude clip point \, the resulting
+signal will be really quiet A makeup gain stage can boost the signal
+above 100dB (unity) by however many dB you like. It's possible to make
+a system where you determine a relationship between the clip point
+and makeup gain ahead of time \, and have the makeup gain automatically
+adjust based on the chosen clip point.;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X connect 2 0 0 1;
+#X connect 2 0 16 0;
+#X connect 3 0 4 0;
+#X connect 4 0 7 0;
+#X connect 5 0 6 0;
+#X connect 6 0 2 1;
+#X connect 7 0 5 0;
+#X connect 9 0 10 0;
+#X connect 9 1 1 2;
+#X connect 10 0 1 1;
+#X connect 11 0 12 0;
+#X connect 12 0 9 0;
+#X connect 13 0 14 0;
+#X connect 14 0 1 0;
+#X connect 14 1 13 0;
+#X connect 15 0 14 0;
+#X connect 19 0 20 0;
+#X connect 20 0 3 0;

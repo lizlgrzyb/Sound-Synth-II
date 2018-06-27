@@ -1,0 +1,51 @@
+#N canvas 24 61 1499 901 24;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array \$0-sample 88200 float 2;
+#X coords 0 1 88199 -1 200 140 1;
+#X restore 598 348 graph;
+#X obj 52 31 adc~;
+#X obj 293 488 outlet~;
+#X text 236 12 Cover loading audio file next;
+#X obj 419 130 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 370 423 dbtorms;
+#X obj 282 420 *~;
+#X obj 170 73 inlet gain;
+#X text 711 74 play;
+#X obj 630 77 inlet;
+#X obj 410 77 inlet;
+#X text 491 72 record;
+#X obj 292 351 tabplay~ \$0-sample;
+#X obj 109 186 tabwrite~ \$0-sample;
+#X text 597 145 Here \, we use the dollar-zero argument \, which is
+just a random number that Pd makes up and guarantees to be unique.
+So we can have as many of these [sampler] abstractions in our parent
+patch as we want \, and Pd won't give that "multiply defined" error
+since every array technically has a unique name.;
+#X obj 51 538 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 51 558 openpanel;
+#X msg 85 784 read -resize \$1 \$2-sample;
+#X obj 86 832 soundfiler;
+#X obj 85 731 pack s \$0;
+#X text 459 510 For the assignment \, you need to make this polyphonic
+\, with several [tabplay~] objects and a routing system to make sure
+that incoming "play" triggers get routed to a [tabplay~] that isn't
+already busy playing a sample. You could also add a sample loading
+feature so that people can load samples rather than record them from
+the mic. For that \, use the [soundfiler] object \, at left.;
+#X text 480 760 Note that we need to pack the file name (a symbol)
+with whatever number \$0 happens to be. That symbol and number get
+passed into the "read" message to soundfiler like this;
+#X connect 1 0 13 0;
+#X connect 4 0 13 0;
+#X connect 5 0 6 1;
+#X connect 6 0 2 0;
+#X connect 7 0 5 0;
+#X connect 9 0 12 0;
+#X connect 10 0 4 0;
+#X connect 12 0 6 0;
+#X connect 15 0 16 0;
+#X connect 16 0 19 0;
+#X connect 17 0 18 0;
+#X connect 19 0 17 0;

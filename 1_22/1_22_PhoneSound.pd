@@ -1,0 +1,7 @@
+#N canvas 280 142 450 300 10;
+#X obj 184 83 osc~ 440;
+#X obj 158 153 dac~;
+#X obj 230 109 osc~ 480;
+#X text 14 27 This is the phone sound!;
+#X connect 0 0 1 0;
+#X connect 2 0 1 0;

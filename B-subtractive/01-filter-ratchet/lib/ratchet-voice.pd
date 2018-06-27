@@ -1,0 +1,44 @@
+#N canvas 790 306 593 571 10;
+#X obj 63 489 *~;
+#X obj 63 300 *~ 10;
+#X obj 63 279 catch~ sum-\$1;
+#X obj 260 107 inlet;
+#X obj 260 128 unpack f f;
+#X obj 373 171 select 0;
+#X obj 171 446 adsr 1 5 50 50 100;
+#X msg 291 405 1;
+#X msg 181 405 0;
+#X obj 260 149 mtof;
+#X obj 260 170 s freq-\$1;
+#X obj 429 223 t b;
+#X obj 63 510 throw~ master-bus;
+#X text 60 25 We have to pass the voice ID number \, which is the first
+creation argument to the [ratchet-voice] abstraction. But we're passing
+it in as the 3rd creation argument to [ratchet-abs] \, so be careful
+to think about how to access the voice ID number inside [ratchet-abs].
+;
+#X obj 429 245 s note-on-\$1;
+#X obj 373 279 s note-off-\$1;
+#X obj 181 383 r note-off-\$1;
+#X obj 291 383 r note-on-\$1;
+#X obj 63 92 ratchet-abs 1 0.9 \$1;
+#X obj 63 192 ratchet-abs 6 0.9 \$1;
+#X obj 63 112 ratchet-abs 2 0.9 \$1;
+#X obj 63 132 ratchet-abs 3 0.9 \$1;
+#X obj 63 152 ratchet-abs 4 0.9 \$1;
+#X obj 63 172 ratchet-abs 5 0.9 \$1;
+#X connect 0 0 12 0;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
+#X connect 4 0 9 0;
+#X connect 4 1 5 0;
+#X connect 5 0 15 0;
+#X connect 5 1 11 0;
+#X connect 6 0 0 1;
+#X connect 7 0 6 0;
+#X connect 8 0 6 0;
+#X connect 9 0 10 0;
+#X connect 11 0 14 0;
+#X connect 16 0 8 0;
+#X connect 17 0 7 0;

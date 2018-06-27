@@ -1,0 +1,28 @@
+#N canvas 206 183 982 395 10;
+#X obj 108 39 key;
+#X obj 108 90 spigot;
+#X obj 168 39 inlet;
+#X obj 108 264 outlet;
+#X obj 218 264 outlet;
+#X msg 414 195 97 36 \, 119 37 \, 115 38 \, 101 39 \, 100 40 \, 102
+41 \, 116 42 \, 103 43 \, 121 44 \, 104 45 \, 117 46 \, 106 47 \, 107
+48 \, 111 49 \, 108 50 \, 112 51 \, 59 52;
+#X obj 579 83 table \$0-key-midi-map 127;
+#X msg 434 153 \; \$1-key-midi-map bounds 0 127 127 0 \;;
+#X obj 414 92 loadbang;
+#X obj 434 133 f \$0;
+#X obj 414 257 s \$0-key-midi-map;
+#X obj 108 141 tabread \$0-key-midi-map;
+#X obj 108 162 moses 1;
+#X obj 108 213 makenote 127 1000;
+#X connect 0 0 1 0;
+#X connect 1 0 11 0;
+#X connect 2 0 1 1;
+#X connect 5 0 10 0;
+#X connect 8 0 9 0;
+#X connect 8 0 5 0;
+#X connect 9 0 7 0;
+#X connect 11 0 12 0;
+#X connect 12 1 13 0;
+#X connect 13 0 3 0;
+#X connect 13 1 4 0;

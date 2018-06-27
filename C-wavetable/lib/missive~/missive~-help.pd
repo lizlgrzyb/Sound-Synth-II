@@ -1,0 +1,156 @@
+#N canvas 201 143 923 711 10;
+#N canvas 4 27 882 584 output-and-reverb 0;
+#X obj 88 383 dac~;
+#X obj 87 324 *~;
+#X obj 336 453 dbtorms;
+#X obj 336 482 pack f 40;
+#X obj 336 511 line~;
+#X obj 147 324 *~;
+#X obj 86 251 *~;
+#X obj 189 84 dbtorms;
+#X obj 189 113 pack f 40;
+#X obj 189 142 line~;
+#X obj 189 57 r dry-volume;
+#X obj 315 102 r wet-volume;
+#X obj 358 152 r rvb;
+#X obj 225 266 rev3~ 0 85 3000 20;
+#X obj 86 66 inlet~;
+#X floatatom 463 299 5 0 124 0 - - -, f 5;
+#X obj 463 326 s dry-volume;
+#X floatatom 603 299 5 0 124 0 - - -, f 5;
+#X obj 603 326 s wet-volume;
+#X floatatom 743 299 5 0 124 0 - - -, f 5;
+#X msg 743 264 85;
+#X obj 743 326 s rvb;
+#X msg 463 262 90;
+#X msg 603 264 90;
+#X obj 463 228 loadbang;
+#X obj 339 416 hsl 256 15 0 100 0 0 empty empty master-volume 8 8 0
+12 -262144 -1 -1 22950 1;
+#X obj 86 88 hip~ 5;
+#X msg 336 366 90;
+#X obj 31 147 env~;
+#X floatatom 31 169 5 0 0 0 - - -, f 5;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 1;
+#X connect 4 0 5 1;
+#X connect 5 0 0 1;
+#X connect 6 0 1 0;
+#X connect 6 0 5 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 6 1;
+#X connect 10 0 7 0;
+#X connect 11 0 13 2;
+#X connect 12 0 13 3;
+#X connect 13 0 1 0;
+#X connect 13 1 5 0;
+#X connect 14 0 26 0;
+#X connect 15 0 16 0;
+#X connect 17 0 18 0;
+#X connect 19 0 21 0;
+#X connect 20 0 19 0;
+#X connect 22 0 15 0;
+#X connect 23 0 17 0;
+#X connect 24 0 22 0;
+#X connect 24 0 23 0;
+#X connect 24 0 20 0;
+#X connect 24 0 27 0;
+#X connect 25 0 2 0;
+#X connect 26 0 13 0;
+#X connect 26 0 6 0;
+#X connect 26 0 28 0;
+#X connect 27 0 25 0;
+#X connect 28 0 29 0;
+#X restore 43 585 pd output-and-reverb;
+#X obj 43 319 mtof~;
+#X obj 43 364 phasor~;
+#X obj 304 353 line~;
+#X floatatom 304 312 5 0 10000 1 squeeze - -, f 5;
+#X obj 304 331 pack f 40;
+#X obj 43 217 samphold~;
+#X obj 43 267 +~ 24;
+#X obj 218 286 +~ 1;
+#X obj 43 53 metro 3000;
+#X obj 43 162 phasor~;
+#X obj 218 308 /~ 2;
+#X obj 43 31 loadbang;
+#X obj 128 217 wrap~ 1;
+#X obj 218 264 cos~;
+#X obj 128 195 *~ 50;
+#X obj 43 75 random 100000;
+#X obj 43 97 / 10000;
+#X obj 19 483 cnv 15 250 60 empty empty empty 20 12 0 14 -249597 -66577
+0;
+#X obj 218 348 *~ 100;
+#X obj 43 242 *~ 36;
+#X obj 218 139 phasor~ 0.2;
+#X msg 218 91 0.2;
+#X msg 258 91 0.4;
+#X msg 469 250 set crude;
+#X msg 509 330 set scifiNoise;
+#X obj 469 392 t b a b;
+#X msg 557 424 \; pd dsp 0 \;;
+#X msg 469 424 \; pd dsp 1 \;;
+#X msg 519 350 set scrap;
+#X msg 499 310 set modern;
+#X msg 479 270 set groan;
+#X msg 489 290 set guit1;
+#X text 366 161 Inlet 0: phasor input (0-1) \; Inlet 1: index into
+the wavetable set (percent) \; Inlet 2: squeeze factor to compress
+duty cycle and flatten out spectrum (percent) \; Inlet 3: send a "set"
+message to load a different wavetable set \;;
+#X text 368 481 NOTE: turn DSP off before loading a new wavetable set
+to avoid a glut of error messages due to send~/receive~ buses that
+go missing during the dynamic patching process. Turn DSP back on after
+the set is loaded. You can skip this if you don't want audio dropouts
+\, but you'll get errors in the post window and may experience dropouts
+anyway due to the file loading/dynamic patching process.;
+#X text 368 581 You will always receive one soundfiler_read error message
+that occurs due to the method used for loading an arbitrary number
+of soundfiles.;
+#X text 39 632 [missive~] \; William Brent \; Aaron Groves \; 2017
+;
+#X msg 529 370 set softRelaxing;
+#X obj 43 504 missive~ modern;
+#X text 365 61 [missive~] is a vector synth object that uses a wavetable
+index to crossfade between neighboring wavetables in a set. Wavetable
+sets can have an arbitrary number of wavetables. The creation argument
+is the name of the wavetable set \, which must be in [missive~]'s wavetables
+directory.;
+#X connect 1 0 2 0;
+#X connect 2 0 38 0;
+#X connect 3 0 38 2;
+#X connect 4 0 5 0;
+#X connect 5 0 3 0;
+#X connect 6 0 20 0;
+#X connect 7 0 1 0;
+#X connect 8 0 11 0;
+#X connect 9 0 16 0;
+#X connect 10 0 6 0;
+#X connect 11 0 19 0;
+#X connect 12 0 9 0;
+#X connect 13 0 6 1;
+#X connect 14 0 8 0;
+#X connect 15 0 13 0;
+#X connect 16 0 17 0;
+#X connect 17 0 10 0;
+#X connect 19 0 38 1;
+#X connect 20 0 7 0;
+#X connect 21 0 14 0;
+#X connect 21 0 15 0;
+#X connect 22 0 21 0;
+#X connect 23 0 21 0;
+#X connect 24 0 26 0;
+#X connect 25 0 26 0;
+#X connect 26 0 28 0;
+#X connect 26 1 38 3;
+#X connect 26 2 27 0;
+#X connect 29 0 26 0;
+#X connect 30 0 26 0;
+#X connect 31 0 26 0;
+#X connect 32 0 26 0;
+#X connect 37 0 26 0;
+#X connect 38 0 0 0;

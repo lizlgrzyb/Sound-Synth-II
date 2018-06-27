@@ -1,0 +1,35 @@
+#N canvas 65 338 1114 458 16;
+#X declare -path ../../lib;
+#X obj 46 37 adc~ 1;
+#X obj 130 123 osc~ 777;
+#X obj 130 151 *~ 0.1;
+#X obj 46 65 *~;
+#X obj 94 65 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+;
+#X obj 130 195 *~;
+#X obj 178 195 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 437 88 1.5;
+#X obj 437 164 line~;
+#X msg 487 88 100;
+#X obj 437 136 pack f 1000;
+#X text 436 18 When the amount of delay is actively changing \, a pitch
+shift occurs. Increasing the amount of delay results in lower pitch
+\, and decreasing results in higher pitch.;
+#X obj 439 323 output~;
+#X obj 438 255 delread4~ \$0-dopp-del;
+#X obj 46 275 delwrite~ \$0-dopp-del 1000;
+#X obj 831 380 declare -path ../../lib;
+#X connect 0 0 3 0;
+#X connect 1 0 2 0;
+#X connect 2 0 5 0;
+#X connect 3 0 14 0;
+#X connect 4 0 3 1;
+#X connect 5 0 14 0;
+#X connect 6 0 5 1;
+#X connect 7 0 10 0;
+#X connect 8 0 13 0;
+#X connect 9 0 10 0;
+#X connect 10 0 8 0;
+#X connect 13 0 12 0;
+#X connect 13 0 12 1;
